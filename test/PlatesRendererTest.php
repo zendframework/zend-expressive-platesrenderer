@@ -12,7 +12,7 @@ namespace ZendTest\Expressive\Template;
 use ArrayObject;
 use League\Plates\Engine;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Expressive\Exception;
+use Zend\Expressive\Template\Exception;
 use Zend\Expressive\Plates\PlatesRenderer;
 use Zend\Expressive\Template\TemplatePath;
 
