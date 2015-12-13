@@ -30,7 +30,7 @@ use League\Plates\Extension as PlatesExtension;
  *     ],
  * ],
  * 'plates' => [
- *     'assets_path' => 'path to assets', 
+ *     'assets_path' => 'path to assets',
  * ]
  * </code>
  */
@@ -51,9 +51,9 @@ class PlatesRendererFactory
         if (isset($config['plates']['assets_path'])) {
             $engine->loadExtension(new PlatesExtension($config['plates']['assets_path']));
         }
-        
+
         $config = isset($config['templates']) ? $config['templates'] : [];
-        
+
         // Set file extension
         if (isset($config['extension'])) {
             $engine->setFileExtension($config['extension']);
