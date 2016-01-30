@@ -76,55 +76,55 @@ class PlatesRendererFactory
 
         return $plates;
     }
-    
+
     /**
      * Merge expressive templating config with plates config.
-     * 
+     *
      * Pulls the `templates` and `plates` top-level keys from the configuration,
      * if present, and then retuns the merged result, with those from the plates
      * array having precedence.
-     * 
+     *
      * @param array|ArrayObject $config
      * @return array
      * @throws Exception\InvalidConfigException if a non-array, non-ArrayObject
      *     $config is received.
-     */ 
-    private function mergeConfig($config) 
+     */
+    private function mergeConfig($config)
     {
         $config = $config instanceof ArrayObject ? $config->getArrayCopy() : $config;
-        
-        if(! is_array($config)) {
+
+        if (! is_array($config)) {
             throw new Exception\InvalidConfigException(sprintf(
-                'config service MUST be an array or ArrayObject; received %s', 
+                'config service MUST be an array or ArrayObject; received %s',
                 is_object($config) ? get_class($config) : gettype($config)
             ));
         }
-        
+
         $expressiveConfig = (isset($config['templates']) && is_array($config['templates']))
             ? $config['templates']
             : [];
         $platesConfig = (isset($config['plates']) && is_array($config['plates']))
             ? $config['plates']
             : [];
-        
+
         return array_replace_recursive($expressiveConfig, $platesConfig);
     }
-    
+
     private function injectExtensions(PlatesEngine $engine, ContainerInterface $container, array $extensions)
     {
         foreach ($extensions as $extension) {
             // Load the extension from the container
-            if(is_string($extension) && $container->has($extension)) {
+            if (is_string($extension) && $container->has($extension)) {
                 $extension = $container->get($extension);
             }
-            
-            if(! $extension instanceof PlatesExtension\ExtensionInterface) {
+
+            if (! $extension instanceof PlatesExtension\ExtensionInterface) {
                 throw new Exception\InvalidExtensionException(sprintf(
                     'Plates extension must be an instance of League\Plates\Extension\ExtensionInterface; "%s" given,',
                     is_object($extension) ? get_class($extension) : gettype($extension)
                 ));
             }
-            
+
             $engine->loadExtension($extension);
         }
     }
