@@ -131,7 +131,16 @@ class PlatesEngineFactory
         }
 
         if ($container->has($extension)) {
-            $engine->loadExtension($container->get($extension));
+            $extension = $container->get($extension);
+            if (!$extension instanceof ExtensionInterface) {
+                throw new Exception\InvalidExtensionException(sprintf(
+                    '%s expects object implements %s ; received %s',
+                    __CLASS__,
+                    ExtensionInterface::class,
+                    (is_object($extension) ? get_class($extension) : gettype($extension))
+                ));
+            }
+            $engine->loadExtension($extension);
             return;
         }
 
