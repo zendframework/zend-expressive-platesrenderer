@@ -7,7 +7,7 @@
  * @license   https://github.com/zendframework/zend-expressive/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Expressive\Template;
+namespace ZendTest\Expressive\Plates;
 
 use ArrayObject;
 use League\Plates\Engine;

@@ -29,6 +29,10 @@ use League\Plates\Engine as PlatesEngine;
  *     ],
  * ]
  * </code>
+ *
+ * If the service League\Plates\Engine exists, that value will be used
+ * for the PlatesEngine; otherwise, this factory invokes the PlatesEngineFactory
+ * to create an instance.
  */
 class PlatesRendererFactory
 {
@@ -42,7 +46,7 @@ class PlatesRendererFactory
         $config = isset($config['templates']) ? $config['templates'] : [];
 
         // Create the engine instance:
-        $engine = new PlatesEngine();
+        $engine = $this->createEngine($container);
 
         // Set file extension
         if (isset($config['extension'])) {
@@ -62,5 +66,26 @@ class PlatesRendererFactory
         }
 
         return $plates;
+    }
+
+    /**
+     * Create and return a Plates Engine instance.
+     *
+     * If the container has the League\Plates\Engine service, returns it.
+     *
+     * Otherwise, invokes the PlatesEngineFactory with the $container to create
+     * and return the instance.
+     *
+     * @param ContainerInterface $container
+     * @return PlatesEngine
+     */
+    private function createEngine(ContainerInterface $container)
+    {
+        if ($container->has(PlatesEngine::class)) {
+            return $container->get(PlatesEngine::class);
+        }
+
+        $engineFactory = new PlatesEngineFactory();
+        return $engineFactory($container);
     }
 }
