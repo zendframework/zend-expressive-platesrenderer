@@ -7,11 +7,15 @@
  * @license   https://github.com/zendframework/zend-expressive/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Expressive\Container\Template;
+namespace ZendTest\Expressive\Plates;
 
 use Interop\Container\ContainerInterface;
+use League\Plates\Engine as PlatesEngine;
 use PHPUnit_Framework_TestCase as TestCase;
 use ReflectionProperty;
+use Zend\Expressive\Helper\ServerUrlHelper;
+use Zend\Expressive\Helper\UrlHelper;
+use Zend\Expressive\Plates\Extension\UrlExtension;
 use Zend\Expressive\Plates\PlatesRendererFactory;
 use Zend\Expressive\Plates\PlatesRenderer;
 use Zend\Expressive\Template\TemplatePath;
@@ -32,6 +36,16 @@ class PlatesRendererFactoryTest extends TestCase
     {
         $this->errorCaught = false;
         $this->container = $this->prophesize(ContainerInterface::class);
+    }
+
+    public function configureEngineService()
+    {
+        $this->container->has(PlatesEngine::class)->willReturn(false);
+        $this->container->has(UrlExtension::class)->willReturn(false);
+        $this->container->has(UrlHelper::class)->willReturn(true);
+        $this->container->has(ServerUrlHelper::class)->willReturn(true);
+        $this->container->get(UrlHelper::class)->willReturn($this->prophesize(UrlHelper::class)->reveal());
+        $this->container->get(ServerUrlHelper::class)->willReturn($this->prophesize(ServerUrlHelper::class)->reveal());
     }
 
     public function fetchPlatesEngine(PlatesRenderer $plates)
@@ -103,6 +117,7 @@ class PlatesRendererFactoryTest extends TestCase
     public function testCallingFactoryWithNoConfigReturnsPlatesInstance()
     {
         $this->container->has('config')->willReturn(false);
+        $this->configureEngineService();
         $factory = new PlatesRendererFactory();
         $plates = $factory($this->container->reveal());
         $this->assertInstanceOf(PlatesRenderer::class, $plates);
@@ -128,6 +143,7 @@ class PlatesRendererFactoryTest extends TestCase
         ];
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn($config);
+        $this->configureEngineService();
         $factory = new PlatesRendererFactory();
         $plates = $factory($this->container->reveal());
 
@@ -150,6 +166,7 @@ class PlatesRendererFactoryTest extends TestCase
         ];
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn($config);
+        $this->configureEngineService();
         $factory = new PlatesRendererFactory();
 
         $reset = set_error_handler(function ($errno, $errstr) {
@@ -174,6 +191,7 @@ class PlatesRendererFactoryTest extends TestCase
         ];
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn($config);
+        $this->configureEngineService();
         $factory = new PlatesRendererFactory();
 
         $this->setExpectedException('LogicException', 'already being used');
@@ -193,6 +211,7 @@ class PlatesRendererFactoryTest extends TestCase
         ];
         $this->container->has('config')->willReturn(true);
         $this->container->get('config')->willReturn($config);
+        $this->configureEngineService();
         $factory = new PlatesRendererFactory();
         $plates = $factory($this->container->reveal());
 
@@ -208,5 +227,18 @@ class PlatesRendererFactoryTest extends TestCase
         $this->assertPathNamespaceContains(__DIR__ . '/TestAsset/bar', 'foo', $paths);
         $this->assertPathNamespaceContains(__DIR__ . '/TestAsset/baz', 'bar', $paths);
         $this->assertPathNamespaceContains(__DIR__ . '/TestAsset/one', null, $paths);
+    }
+
+    public function testWillPullPlatesEngineFromContainerIfPresent()
+    {
+        $engine = $this->prophesize(PlatesEngine::class);
+        $this->container->has(PlatesEngine::class)->willReturn(true);
+        $this->container->get(PlatesEngine::class)->willReturn($engine->reveal());
+
+        $this->container->has('config')->willReturn(false);
+
+        $factory = new PlatesRendererFactory();
+        $renderer = $factory($this->container->reveal());
+        $this->assertAttributeSame($engine->reveal(), 'template', $renderer);
     }
 }
