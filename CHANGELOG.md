@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 1.1.0 - TBD
+## 1.1.0 - 2016-03-29
 
 ### Added
 
@@ -37,24 +37,6 @@ All notable changes to this project will be documented in this file, in reverse 
   service, if available, or the new `PlatesEngineFactory` to create the Plates
   engine instance. This also ensures the `url()` and `serverurl()` functions are
   registered by default.
-
-## 1.0.1 - TBD
-
-### Added
-
-- Nothing.
-
-### Deprecated
-
-- Nothing.
-
-### Removed
-
-- Nothing.
-
-### Fixed
-
-- Nothing.
 
 ## 1.0.0 - 2015-12-07
 
