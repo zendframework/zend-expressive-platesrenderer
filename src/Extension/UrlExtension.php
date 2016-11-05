@@ -56,13 +56,25 @@ class UrlExtension implements ExtensionInterface
     /**
      * Generate a URL from either the currently matched route or the specfied route.
      *
-     * @param null|string $route Name of route from which to generate URL.
-     * @param array $params Route substitution parameters
+     * @param string $routeName
+     * @param array  $routeParams
+     * @param array  $queryParams
+     * @param string $fragmentIdentifier
+     * @param array  $options       Can have the following keys:
+     *                              - router (array): contains options to be passed to the router
+     *                              - reuse_result_params (bool): indicates if the current RouteResult
+     *                              parameters will be used, defaults to true
+     *
      * @return string
      */
-    public function generateUrl($route = null, array $params = [])
-    {
-        return $this->urlHelper->generate($route, $params);
+    public function generateUrl(
+        $routeName = null,
+        array $routeParams = [],
+        array $queryParams = [],
+        $fragmentIdentifier = '',
+        array $options = []
+    ) {
+        return $this->urlHelper->generate($routeName, $routeParams, $queryParams, $fragmentIdentifier, $options);
     }
 
     /**
