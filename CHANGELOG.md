@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 1.1.1 - TBD
+## 1.1.1 - 2017-01-11
 
 ### Added
 
@@ -18,7 +18,12 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#9](https://github.com/zendframework/zend-expressive-platesrenderer/pull/9) and
+  [#13](https://github.com/zendframework/zend-expressive-platesrenderer/pull/13)
+  update the `PlatesEngineFactory` to ensure it raises a
+  `Zend\Expressive\Plates\Exception\InvalidExtensionException` if a named
+  service or an invokable extension class result in a non-`ExtensionInterface`
+  instance.
 
 ## 1.1.0 - 2016-03-29
 
