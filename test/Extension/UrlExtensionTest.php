@@ -19,7 +19,7 @@ class UrlExtensionTest extends TestCase
 {
     public function setUp()
     {
-        $this->urlHelper = $this->prophesize(UrlHelper::class);
+        $this->urlHelper       = $this->prophesize(UrlHelper::class);
         $this->serverUrlHelper = $this->prophesize(ServerUrlHelper::class);
 
         $this->extension = new UrlExtension(
@@ -46,9 +46,9 @@ class UrlExtensionTest extends TestCase
     public function urlHelperParams()
     {
         return [
-            'null' => [null, []],
-            'route-only' => ['route', []],
-            'params-only' => [null, ['param' => 'value']],
+            'null'             => [null, []],
+            'route-only'       => ['route', []],
+            'params-only'      => [null, ['param' => 'value']],
             'route-and-params' => ['route', ['param' => 'value']],
         ];
     }
@@ -58,14 +58,36 @@ class UrlExtensionTest extends TestCase
      */
     public function testGenerateUrlProxiesToUrlHelper($route, array $params)
     {
-        $this->urlHelper->generate($route, $params)->willReturn('/success');
+        $this->urlHelper->generate($route, $params, [], '', [])->willReturn('/success');
         $this->assertEquals('/success', $this->extension->generateUrl($route, $params));
+    }
+
+    public function testUrlHelperAcceptsQueryParametersFragmentAndOptions()
+    {
+        $this->urlHelper->generate(
+            'resource',
+            ['id' => 'sha1'],
+            ['foo' => 'bar'],
+            'fragment',
+            ['reuse_result_params' => true]
+        )->willReturn('PATH');
+
+        $this->assertEquals(
+            'PATH',
+            $this->extension->generateUrl(
+                'resource',
+                ['id' => 'sha1'],
+                ['foo' => 'bar'],
+                'fragment',
+                ['reuse_result_params' => true]
+            )
+        );
     }
 
     public function serverUrlHelperParams()
     {
         return [
-            'null' => [null],
+            'null'          => [null],
             'absolute-path' => ['/foo/bar'],
             'relative-path' => ['foo/bar'],
         ];
