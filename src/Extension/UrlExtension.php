@@ -60,11 +60,10 @@ class UrlExtension implements ExtensionInterface
      * @param array  $routeParams
      * @param array  $queryParams
      * @param string $fragmentIdentifier
-     * @param array  $options       Can have the following keys:
-     *                              - router (array): contains options to be passed to the router
-     *                              - reuse_result_params (bool): indicates if the current RouteResult
-     *                              parameters will be used, defaults to true
-     *
+     * @param array  $options Can have the following keys:
+     *     - router (array): contains options to be passed to the router
+     *     - reuse_result_params (bool): indicates if the current RouteResult
+     *       parameters will be used, defaults to true
      * @return string
      */
     public function generateUrl(
