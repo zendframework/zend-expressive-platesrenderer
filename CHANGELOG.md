@@ -2,11 +2,30 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 1.2.0 - TBD
+## 1.2.0 - 2017-01-11
 
 ### Added
 
-- Nothing.
+- [#11](https://github.com/zendframework/zend-expressive-platesrenderer/pull/11)
+  adds support for zend-expressive-helpers 3.0.0 (and, consequently,
+  zend-expressive-router 2.0.0). Users may now pass additional arguments to the
+  `url()` helper:
+
+  ```php
+  echo $this->url(
+      $routeName,         // (optional) string route name; omit to use current matched route
+      $routeParams,       // (optional) array of route parameter substitutions
+      $queryParams,       // (optional) array of query string parameters to include
+      $fragmentIdentifer, // (optional) string fragment to include
+      $options,           // (optional) array of options; `router` array will be
+                          // passed to the router, `reuse_result_params` can be
+                          // passed to disable reuse of matched route parameters.
+  );
+  ```
+
+  If you are still using the zend-expressive-helpers 2.2 series and/or
+  zend-expressive-router 1.0 series, all parameters provided after the
+  `$routeParams` will be ignored.
 
 ### Deprecated
 
@@ -14,7 +33,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- Nothing.
+- [#14](https://github.com/zendframework/zend-expressive-platesrenderer/pull/14)
+  removes support for PHP 5.5.
 
 ### Fixed
 
