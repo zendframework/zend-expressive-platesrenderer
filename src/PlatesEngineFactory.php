@@ -1,9 +1,7 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
  * @see       https://github.com/zendframework/zend-expressive-platesrenderer for the canonical source repository
- * @copyright Copyright (c) 2016 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2016-2017 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   https://github.com/zendframework/zend-expressive-platesrenderer/blob/master/LICENSE.md New BSD License
  */
 
@@ -130,20 +128,27 @@ class PlatesEngineFactory
             ));
         }
 
-        if ($container->has($extension)) {
-            $engine->loadExtension($container->get($extension));
-            return;
+        if (! $container->has($extension) && ! class_exists($extension)) {
+            throw new Exception\InvalidExtensionException(sprintf(
+                '%s expects extension service names or class names; "%s" does not resolve to either',
+                __CLASS__,
+                $extension
+            ));
         }
 
-        if (class_exists($extension)) {
-            $engine->loadExtension(new $extension());
-            return;
+        $extension = $container->has($extension)
+            ? $container->get($extension)
+            : new $extension();
+
+        if (! $extension instanceof ExtensionInterface) {
+            throw new Exception\InvalidExtensionException(sprintf(
+                '%s expects extension services to implement %s ; received %s',
+                __CLASS__,
+                ExtensionInterface::class,
+                (is_object($extension) ? get_class($extension) : gettype($extension))
+            ));
         }
 
-        throw new Exception\InvalidExtensionException(sprintf(
-            '%s expects extension service names or class names; "%s" does not resolve to either',
-            __CLASS__,
-            $extension
-        ));
+        $engine->loadExtension($extension);
     }
 }
