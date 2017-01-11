@@ -14,6 +14,7 @@ use League\Plates\Engine as PlatesEngine;
 use League\Plates\Extension\ExtensionInterface;
 use PHPUnit_Framework_TestCase as TestCase;
 use Prophecy\Argument;
+use stdClass;
 use Zend\Expressive\Helper\ServerUrlHelper;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Plates\Exception\InvalidExtensionException;
@@ -128,6 +129,45 @@ class PlatesEngineFactoryTest extends TestCase
 
         $factory = new PlatesEngineFactory();
         $this->setExpectedException(InvalidExtensionException::class);
+        $factory($this->container->reveal());
+    }
+
+    public function testFactoryRaisesExceptionWhenAttemptingToInjectAnInvalidExtensionService()
+    {
+        $config = [
+            'plates' => [
+                'extensions' => [
+                    'FooExtension',
+                ],
+            ],
+        ];
+        $this->container->has('config')->willReturn(true);
+        $this->container->get('config')->willReturn($config);
+
+        $this->container->has('FooExtension')->willReturn(true);
+        $this->container->get('FooExtension')->willReturn(new stdClass());
+
+        $factory = new PlatesEngineFactory();
+        $this->setExpectedException(InvalidExtensionException::class, 'ExtensionInterface');
+        $factory($this->container->reveal());
+    }
+
+    public function testFactoryRaisesExceptionWhenNonServiceClassIsAnInvalidExtension()
+    {
+        $config = [
+            'plates' => [
+                'extensions' => [
+                    stdClass::class,
+                ],
+            ],
+        ];
+        $this->container->has('config')->willReturn(true);
+        $this->container->get('config')->willReturn($config);
+
+        $this->container->has(stdClass::class)->willReturn(false);
+
+        $factory = new PlatesEngineFactory();
+        $this->setExpectedException(InvalidExtensionException::class, 'ExtensionInterface');
         $factory($this->container->reveal());
     }
 }

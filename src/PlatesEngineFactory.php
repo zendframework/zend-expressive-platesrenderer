@@ -130,29 +130,27 @@ class PlatesEngineFactory
             ));
         }
 
-        if ($container->has($extension)) {
-            $extension = $container->get($extension);
-            if (!$extension instanceof ExtensionInterface) {
-                throw new Exception\InvalidExtensionException(sprintf(
-                    '%s expects object implements %s ; received %s',
-                    __CLASS__,
-                    ExtensionInterface::class,
-                    (is_object($extension) ? get_class($extension) : gettype($extension))
-                ));
-            }
-            $engine->loadExtension($extension);
-            return;
+        if (! $container->has($extension) && ! class_exists($extension)) {
+            throw new Exception\InvalidExtensionException(sprintf(
+                '%s expects extension service names or class names; "%s" does not resolve to either',
+                __CLASS__,
+                $extension
+            ));
         }
 
-        if (class_exists($extension)) {
-            $engine->loadExtension(new $extension());
-            return;
+        $extension = $container->has($extension)
+            ? $container->get($extension)
+            : new $extension();
+
+        if (! $extension instanceof ExtensionInterface) {
+            throw new Exception\InvalidExtensionException(sprintf(
+                '%s expects extension services to implement %s ; received %s',
+                __CLASS__,
+                ExtensionInterface::class,
+                (is_object($extension) ? get_class($extension) : gettype($extension))
+            ));
         }
 
-        throw new Exception\InvalidExtensionException(sprintf(
-            '%s expects extension service names or class names; "%s" does not resolve to either',
-            __CLASS__,
-            $extension
-        ));
+        $engine->loadExtension($extension);
     }
 }
