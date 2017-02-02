@@ -57,6 +57,7 @@ class PlatesRenderer implements TemplateRendererInterface
      *
      * @param string $path
      * @param string $namespace
+     * @return void
      */
     public function addPath($path, $namespace = null)
     {
@@ -91,8 +92,6 @@ class PlatesRenderer implements TemplateRendererInterface
     }
 
     /**
-     * {@inheritDoc}
-     *
      * Proxies to the Plate Engine's `addData()` method.
      *
      * {@inheritDoc}
