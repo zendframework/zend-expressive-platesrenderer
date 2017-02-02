@@ -11,8 +11,8 @@ namespace Zend\Expressive\Plates;
 
 use League\Plates\Engine;
 use ReflectionProperty;
-use Zend\Expressive\Exception;
 use Zend\Expressive\Template\ArrayParametersTrait;
+use Zend\Expressive\Template\Exception;
 use Zend\Expressive\Template\TemplatePath;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
