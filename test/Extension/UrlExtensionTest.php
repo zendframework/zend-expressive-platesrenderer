@@ -8,13 +8,23 @@
 namespace ZendTest\Expressive\Plates\Extension;
 
 use League\Plates\Engine;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
+use Prophecy\Prophecy\ProphecyInterface;
 use Zend\Expressive\Helper\ServerUrlHelper;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Plates\Extension\UrlExtension;
 
 class UrlExtensionTest extends TestCase
 {
+    /** @var UrlHelper|ProphecyInterface */
+    private $urlHelper;
+
+    /** @var ServerUrlHelper|ProphecyInterface */
+    private $serverUrlHelper;
+
+    /** @var UrlExtension */
+    private $extension;
+
     public function setUp()
     {
         $this->urlHelper       = $this->prophesize(UrlHelper::class);
@@ -29,14 +39,12 @@ class UrlExtensionTest extends TestCase
     public function testRegistersUrlFunctionWithEngine()
     {
         $engine = $this->prophesize(Engine::class);
-        $engine->registerFunction(
-            'url',
-            [$this->extension, 'generateUrl']
-        )->shouldBeCalled();
-        $engine->registerFunction(
-            'serverurl',
-            [$this->extension, 'generateServerUrl']
-        )->shouldBeCalled();
+        $engine
+            ->registerFunction('url', [$this->extension, 'generateUrl'])
+            ->shouldBeCalled();
+        $engine
+            ->registerFunction('serverurl', [$this->extension, 'generateServerUrl'])
+            ->shouldBeCalled();
 
         $this->extension->register($engine->reveal());
     }
@@ -53,6 +61,9 @@ class UrlExtensionTest extends TestCase
 
     /**
      * @dataProvider urlHelperParams
+     *
+     * @param null|string $route
+     * @param array $params
      */
     public function testGenerateUrlProxiesToUrlHelper($route, array $params)
     {
@@ -93,6 +104,8 @@ class UrlExtensionTest extends TestCase
 
     /**
      * @dataProvider serverUrlHelperParams
+     *
+     * @param null|string $path
      */
     public function testGenerateServerUrlProxiesToServerUrlHelper($path)
     {

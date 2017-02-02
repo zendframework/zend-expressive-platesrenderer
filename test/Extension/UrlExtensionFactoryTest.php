@@ -8,7 +8,8 @@
 namespace ZendTest\Expressive\Plates\Extension;
 
 use Interop\Container\ContainerInterface;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
+use Prophecy\Prophecy\ProphecyInterface;
 use Zend\Expressive\Helper\ServerUrlHelper;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Plates\Exception\MissingHelperException;
@@ -17,6 +18,15 @@ use Zend\Expressive\Plates\Extension\UrlExtensionFactory;
 
 class UrlExtensionFactoryTest extends TestCase
 {
+    /** @var ContainerInterface|ProphecyInterface */
+    private $container;
+
+    /** @var UrlHelper|ProphecyInterface */
+    private $urlHelper;
+
+    /** @var ServerUrlHelper|ProphecyInterface */
+    private $serverUrlHelper;
+
     public function setUp()
     {
         $this->container = $this->prophesize(ContainerInterface::class);
@@ -48,7 +58,8 @@ class UrlExtensionFactoryTest extends TestCase
 
         $factory = new UrlExtensionFactory();
 
-        $this->setExpectedException(MissingHelperException::class, UrlHelper::class);
+        $this->expectException(MissingHelperException::class);
+        $this->expectExceptionMessage(UrlHelper::class);
         $factory($this->container->reveal());
     }
 
@@ -61,7 +72,8 @@ class UrlExtensionFactoryTest extends TestCase
 
         $factory = new UrlExtensionFactory();
 
-        $this->setExpectedException(MissingHelperException::class, ServerUrlHelper::class);
+        $this->expectException(MissingHelperException::class);
+        $this->expectExceptionMessage(ServerUrlHelper::class);
         $factory($this->container->reveal());
     }
 }

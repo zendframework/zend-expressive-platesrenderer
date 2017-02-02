@@ -9,7 +9,9 @@ namespace ZendTest\Expressive\Plates;
 
 use Interop\Container\ContainerInterface;
 use League\Plates\Engine as PlatesEngine;
-use PHPUnit_Framework_TestCase as TestCase;
+use LogicException;
+use PHPUnit\Framework\TestCase;
+use Prophecy\Prophecy\ProphecyInterface;
 use ReflectionProperty;
 use Zend\Expressive\Helper\ServerUrlHelper;
 use Zend\Expressive\Helper\UrlHelper;
@@ -21,14 +23,14 @@ use Zend\Expressive\Template\TemplatePath;
 class PlatesRendererFactoryTest extends TestCase
 {
     /**
-     * @var  ContainerInterface
+     * @var ContainerInterface|ProphecyInterface
      */
     private $container;
 
     /**
      * @var bool
      */
-    public $errorCaught = false;
+    private $errorCaught = false;
 
     public function setUp()
     {
@@ -124,6 +126,8 @@ class PlatesRendererFactoryTest extends TestCase
 
     /**
      * @depends testCallingFactoryWithNoConfigReturnsPlatesInstance
+     *
+     * @param PlatesRenderer $plates
      */
     public function testUnconfiguredPlatesInstanceContainsNoPaths(PlatesRenderer $plates)
     {
@@ -167,10 +171,10 @@ class PlatesRendererFactoryTest extends TestCase
         $this->configureEngineService();
         $factory = new PlatesRendererFactory();
 
-        $reset = set_error_handler(function ($errno, $errstr) {
+        set_error_handler(function ($errno, $errstr) {
             $this->errorCaught = true;
         }, E_USER_WARNING);
-        $plates = $factory($this->container->reveal());
+        $factory($this->container->reveal());
         restore_error_handler();
         $this->assertTrue($this->errorCaught, 'Did not detect duplicate path for default namespace');
     }
@@ -192,8 +196,9 @@ class PlatesRendererFactoryTest extends TestCase
         $this->configureEngineService();
         $factory = new PlatesRendererFactory();
 
-        $this->setExpectedException('LogicException', 'already being used');
-        $plates = $factory($this->container->reveal());
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('already being used');
+        $factory($this->container->reveal());
     }
 
     public function testConfiguresPaths()

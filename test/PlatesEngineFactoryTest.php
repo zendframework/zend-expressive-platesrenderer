@@ -10,8 +10,9 @@ namespace ZendTest\Expressive\Plates;
 use Interop\Container\ContainerInterface;
 use League\Plates\Engine as PlatesEngine;
 use League\Plates\Extension\ExtensionInterface;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\Prophecy\ProphecyInterface;
 use stdClass;
 use Zend\Expressive\Helper\ServerUrlHelper;
 use Zend\Expressive\Helper\UrlHelper;
@@ -21,6 +22,9 @@ use Zend\Expressive\Plates\PlatesEngineFactory;
 
 class PlatesEngineFactoryTest extends TestCase
 {
+    /** @var ContainerInterface|ProphecyInterface */
+    private $container;
+
     public function setUp()
     {
         TestAsset\TestExtension::$engine = null;
@@ -50,8 +54,10 @@ class PlatesEngineFactoryTest extends TestCase
 
     /**
      * @depends testFactoryReturnsPlatesEngine
+     *
+     * @param PlatesEngine $engine
      */
-    public function testUrlExtensionIsRegisteredByDefault($engine)
+    public function testUrlExtensionIsRegisteredByDefault(PlatesEngine $engine)
     {
         $this->assertTrue($engine->doesFunctionExist('url'));
         $this->assertTrue($engine->doesFunctionExist('serverurl'));
@@ -108,6 +114,8 @@ class PlatesEngineFactoryTest extends TestCase
 
     /**
      * @dataProvider invalidExtensions
+     *
+     * @param mixed $extension
      */
     public function testFactoryRaisesExceptionForInvalidExtensions($extension)
     {
@@ -126,7 +134,7 @@ class PlatesEngineFactoryTest extends TestCase
         }
 
         $factory = new PlatesEngineFactory();
-        $this->setExpectedException(InvalidExtensionException::class);
+        $this->expectException(InvalidExtensionException::class);
         $factory($this->container->reveal());
     }
 
@@ -146,7 +154,8 @@ class PlatesEngineFactoryTest extends TestCase
         $this->container->get('FooExtension')->willReturn(new stdClass());
 
         $factory = new PlatesEngineFactory();
-        $this->setExpectedException(InvalidExtensionException::class, 'ExtensionInterface');
+        $this->expectException(InvalidExtensionException::class);
+        $this->expectExceptionMessage('ExtensionInterface');
         $factory($this->container->reveal());
     }
 
@@ -165,7 +174,8 @@ class PlatesEngineFactoryTest extends TestCase
         $this->container->has(stdClass::class)->willReturn(false);
 
         $factory = new PlatesEngineFactory();
-        $this->setExpectedException(InvalidExtensionException::class, 'ExtensionInterface');
+        $this->expectException(InvalidExtensionException::class);
+        $this->expectExceptionMessage('ExtensionInterface');
         $factory($this->container->reveal());
     }
 }
