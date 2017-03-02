@@ -1,17 +1,15 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @see       https://github.com/zendframework/zend-expressive for the canonical source repository
- * @copyright Copyright (c) 2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-expressive/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/zendframework/zend-expressive-platesrenderer for the canonical source repository
+ * @copyright Copyright (c) 2015-2017 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-expressive-platesrenderer/blob/master/LICENSE.md New BSD License
  */
 
 namespace ZendTest\Expressive\Plates;
 
 use ArrayObject;
 use League\Plates\Engine;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\Expressive\Template\Exception;
 use Zend\Expressive\Plates\PlatesRenderer;
 use Zend\Expressive\Template\TemplatePath;
@@ -88,7 +86,7 @@ class PlatesRendererTest extends TestCase
         $renderer->addPath(__DIR__ . '/TestAsset');
         $paths = $renderer->getPaths();
         $this->assertInternalType('array', $paths);
-        $this->assertEquals(1, count($paths));
+        $this->assertCount(1, $paths);
         $this->assertTemplatePath(__DIR__ . '/TestAsset', $paths[0]);
         $this->assertTemplatePathString(__DIR__ . '/TestAsset', $paths[0]);
         $this->assertEmptyTemplatePathNamespace($paths[0]);
@@ -116,7 +114,7 @@ class PlatesRendererTest extends TestCase
 
         $paths = $renderer->getPaths();
         $this->assertInternalType('array', $paths);
-        $this->assertEquals(1, count($paths));
+        $this->assertCount(1, $paths);
         $test = array_shift($paths);
         $this->assertEqualTemplatePath($path, $test);
     }
@@ -127,7 +125,7 @@ class PlatesRendererTest extends TestCase
         $renderer->addPath(__DIR__ . '/TestAsset', 'test');
         $paths = $renderer->getPaths();
         $this->assertInternalType('array', $paths);
-        $this->assertEquals(1, count($paths));
+        $this->assertCount(1, $paths);
         $this->assertTemplatePath(__DIR__ . '/TestAsset', $paths[0]);
         $this->assertTemplatePathString(__DIR__ . '/TestAsset', $paths[0]);
         $this->assertTemplatePathNamespace('test', $paths[0]);
@@ -160,11 +158,13 @@ class PlatesRendererTest extends TestCase
 
     /**
      * @dataProvider invalidParameterValues
+     *
+     * @param mixed $params
      */
     public function testRenderRaisesExceptionForInvalidParameterTypes($params)
     {
         $renderer = new PlatesRenderer();
-        $this->setExpectedException(Exception\InvalidArgumentException::class);
+        $this->expectException(Exception\InvalidArgumentException::class);
         $renderer->render('foo', $params);
     }
 
@@ -192,6 +192,9 @@ class PlatesRendererTest extends TestCase
 
     /**
      * @dataProvider objectParameterValues
+     *
+     * @param object $params
+     * @param string $search
      */
     public function testCanRenderWithParameterObjects($params, $search)
     {
