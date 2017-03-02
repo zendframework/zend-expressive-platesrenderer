@@ -1,10 +1,8 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @see       https://github.com/zendframework/zend-expressive for the canonical source repository
- * @copyright Copyright (c) 2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-expressive/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/zendframework/zend-expressive-platesrenderer for the canonical source repository
+ * @copyright Copyright (c) 2015-2017 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-expressive-platesrenderer/blob/master/LICENSE.md New BSD License
  */
 
 namespace Zend\Expressive\Plates;
@@ -59,6 +57,7 @@ class PlatesRenderer implements TemplateRendererInterface
      *
      * @param string $path
      * @param string $namespace
+     * @return void
      */
     public function addPath($path, $namespace = null)
     {
@@ -93,8 +92,6 @@ class PlatesRenderer implements TemplateRendererInterface
     }
 
     /**
-     * {@inheritDoc}
-     *
      * Proxies to the Plate Engine's `addData()` method.
      *
      * {@inheritDoc}
@@ -104,14 +101,14 @@ class PlatesRenderer implements TemplateRendererInterface
         if (! is_string($templateName) || empty($templateName)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '$templateName must be a non-empty string; received %s',
-                (is_object($templateName) ? get_class($templateName) : gettype($templateName))
+                is_object($templateName) ? get_class($templateName) : gettype($templateName)
             ));
         }
 
         if (! is_string($param) || empty($param)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '$param must be a non-empty string; received %s',
-                (is_object($param) ? get_class($param) : gettype($param))
+                is_object($param) ? get_class($param) : gettype($param)
             ));
         }
 
