@@ -20,7 +20,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
-## 1.2.1 - TBD
+## 1.2.1 - 2017-03-02
 
 ### Added
 
@@ -36,7 +36,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#15](https://github.com/zendframework/zend-expressive-platesrenderer/pull/15)
+  updates the import statement for exceptions to point to the correct
+  `Zend\Expressive\Router\Exception` namespace.
 
 ## 1.2.0 - 2017-01-11
 
