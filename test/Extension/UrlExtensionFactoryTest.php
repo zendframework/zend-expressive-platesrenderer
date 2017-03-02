@@ -1,16 +1,15 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
  * @see       https://github.com/zendframework/zend-expressive-platesrenderer for the canonical source repository
- * @copyright Copyright (c) 2016 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2016-2017 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   https://github.com/zendframework/zend-expressive-platesrenderer/blob/master/LICENSE.md New BSD License
  */
 
 namespace ZendTest\Expressive\Plates\Extension;
 
 use Interop\Container\ContainerInterface;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
+use Prophecy\Prophecy\ProphecyInterface;
 use Zend\Expressive\Helper\ServerUrlHelper;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Plates\Exception\MissingHelperException;
@@ -19,6 +18,15 @@ use Zend\Expressive\Plates\Extension\UrlExtensionFactory;
 
 class UrlExtensionFactoryTest extends TestCase
 {
+    /** @var ContainerInterface|ProphecyInterface */
+    private $container;
+
+    /** @var UrlHelper|ProphecyInterface */
+    private $urlHelper;
+
+    /** @var ServerUrlHelper|ProphecyInterface */
+    private $serverUrlHelper;
+
     public function setUp()
     {
         $this->container = $this->prophesize(ContainerInterface::class);
@@ -50,7 +58,8 @@ class UrlExtensionFactoryTest extends TestCase
 
         $factory = new UrlExtensionFactory();
 
-        $this->setExpectedException(MissingHelperException::class, UrlHelper::class);
+        $this->expectException(MissingHelperException::class);
+        $this->expectExceptionMessage(UrlHelper::class);
         $factory($this->container->reveal());
     }
 
@@ -63,7 +72,8 @@ class UrlExtensionFactoryTest extends TestCase
 
         $factory = new UrlExtensionFactory();
 
-        $this->setExpectedException(MissingHelperException::class, ServerUrlHelper::class);
+        $this->expectException(MissingHelperException::class);
+        $this->expectExceptionMessage(ServerUrlHelper::class);
         $factory($this->container->reveal());
     }
 }
