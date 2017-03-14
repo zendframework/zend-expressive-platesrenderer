@@ -2,29 +2,12 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 1.3.0 - TBD
+## 1.3.0 - 2017-03-14
 
 ### Added
 
-- Nothing.
-
-### Deprecated
-
-- Nothing.
-
-### Removed
-
-- Nothing.
-
-### Fixed
-
-- Nothing.
-
-## 1.2.2 - TBD
-
-### Added
-
-- Nothing.
+- [#18](https://github.com/zendframework/zend-expressive-platesrenderer/pull/18)
+  adds support for zend-expressive-helpers 4.0.
 
 ### Deprecated
 
