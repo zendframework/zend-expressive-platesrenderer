@@ -67,7 +67,7 @@ class UrlExtensionTest extends TestCase
      */
     public function testGenerateUrlProxiesToUrlHelper($route, array $params)
     {
-        $this->urlHelper->generate($route, $params, [], '', [])->willReturn('/success');
+        $this->urlHelper->generate($route, $params, [], null, [])->willReturn('/success');
         $this->assertEquals('/success', $this->extension->generateUrl($route, $params));
     }
 
