@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 1.3.1 - TBD
+## 1.3.1 - 2017-03-14
 
 ### Added
 
@@ -18,7 +18,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#17](https://github.com/zendframework/zend-expressive-platesrenderer/pull/17)
+  fixes the default value of the `UrlExtension`'s `$fragmentIdentifier` to be
+  `null` instead of an empty string.
 
 ## 1.3.0 - 2017-03-14
 
