@@ -68,7 +68,7 @@ class UrlExtension implements ExtensionInterface
         $routeName = null,
         array $routeParams = [],
         array $queryParams = [],
-        $fragmentIdentifier = '',
+        $fragmentIdentifier = null,
         array $options = []
     ) {
         return $this->urlHelper->generate($routeName, $routeParams, $queryParams, $fragmentIdentifier, $options);
