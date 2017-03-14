@@ -22,6 +22,10 @@ matrix:
     - php: 5.6
       env:
         - DEPS=locked
+        - HELPERS_DEP="zendframework/zend-expressive-helpers:^3.0.1"
+    - php: 5.6
+      env:
+        - DEPS=locked
         - TEST_COVERAGE=true
     - php: 5.6
       env:
@@ -35,6 +39,10 @@ matrix:
         - CS_CHECK=true
     - php: 7
       env:
+        - DEPS=locked
+        - HELPERS_DEP="zendframework/zend-expressive-helpers:^3.0.1"
+    - php: 7
+      env:
         - DEPS=latest
     - php: 7.1
       env:
@@ -44,6 +52,10 @@ matrix:
         - DEPS=locked
     - php: 7.1
       env:
+        - DEPS=locked
+        - HELPERS_DEP="zendframework/zend-expressive-helpers:^3.0.1"
+    - php: 7.1
+      env:
         - DEPS=latest
     - php: hhvm
       env:
@@ -51,6 +63,10 @@ matrix:
     - php: hhvm
       env:
         - DEPS=locked
+    - php: hhvm
+      env:
+        - DEPS=locked
+        - HELPERS_DEP="zendframework/zend-expressive-helpers:^3.0.1"
     - php: hhvm
       env:
         - DEPS=latest
@@ -66,6 +82,7 @@ install:
   - if [[ $TRAVIS_PHP_VERSION =~ ^5.6 ]]; then travis_retry composer update $COMPOSER_ARGS --with-dependencies $LEGACY_DEPS ; fi
   - if [[ $DEPS == 'latest' ]]; then travis_retry composer update $COMPOSER_ARGS ; fi
   - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
+  - if [[ $HELPERS_DEP != '' ]]; then travis_retry composer require $COMPOSER_ARGS --update-with-dependencies $HELPERS_DEP ; fi
   - if [[ $TEST_COVERAGE == 'true' ]]; then travis_retry composer require --dev $COMPOSER_ARGS $COVERAGE_DEPS ; fi
   - composer show
 
