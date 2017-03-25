@@ -7,11 +7,11 @@
 
 namespace Zend\Expressive\Plates\Exception;
 
-use Interop\Container\Exception\ContainerException;
+use Psr\Container\ContainerExceptionInterface;
 use RuntimeException;
 
 class InvalidExtensionException extends RuntimeException implements
     ExceptionInterface,
-    ContainerException
+    ContainerExceptionInterface
 {
 }
