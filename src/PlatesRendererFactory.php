@@ -9,6 +9,7 @@ namespace Zend\Expressive\Plates;
 
 use Interop\Container\ContainerInterface;
 use League\Plates\Engine as PlatesEngine;
+use League\Plates\Extension as PlatesExtension;
 
 /**
  * Create and return a Plates template instance.
@@ -25,6 +26,9 @@ use League\Plates\Engine as PlatesEngine;
  *         // Numeric namespaces imply the default/main namespace. Paths may be
  *         // strings or arrays of string paths to associate with the namespace.
  *     ],
+ * ],
+ * 'plates' => [
+ *     'assets_path' => 'path to assets',
  * ]
  * </code>
  *
@@ -41,10 +45,16 @@ class PlatesRendererFactory
     public function __invoke(ContainerInterface $container)
     {
         $config = $container->has('config') ? $container->get('config') : [];
-        $config = isset($config['templates']) ? $config['templates'] : [];
 
         // Create the engine instance:
         $engine = $this->createEngine($container);
+
+        // Enable assets extension
+        if (isset($config['plates']['assets_path'])) {
+            $engine->loadExtension(new PlatesExtension($config['plates']['assets_path']));
+        }
+
+        $config = isset($config['templates']) ? $config['templates'] : [];
 
         // Set file extension
         if (isset($config['extension'])) {
