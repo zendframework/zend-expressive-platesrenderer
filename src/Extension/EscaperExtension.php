@@ -15,6 +15,22 @@ use Zend\Escaper\Exception\InvalidArgumentException;
 class EscaperExtension implements ExtensionInterface
 {
     /**
+     * @var Escaper
+     */
+    private $escaper;
+
+    /**
+     * EscaperExtension constructor.
+     *
+     * @param null|string $encoding
+     * @throws InvalidArgumentException
+     */
+    public function __construct($encoding = null)
+    {
+        $this->escaper = new Escaper($encoding);
+    }
+
+    /**
      * Register functions with the Plates engine.
      *
      * Registers:
@@ -27,16 +43,13 @@ class EscaperExtension implements ExtensionInterface
      *
      * @param Engine $engine
      * @return void
-     * @throws InvalidArgumentException
      */
     public function register(Engine $engine)
     {
-        $escaper = new Escaper();
-
-        $engine->registerFunction('escapeHtml', [$escaper, 'escapeHtml']);
-        $engine->registerFunction('escapeHtmlAttr', [$escaper, 'escapeHtmlAttr']);
-        $engine->registerFunction('escapeJs', [$escaper, 'escapeJs']);
-        $engine->registerFunction('escapeCss', [$escaper, 'escapeCss']);
-        $engine->registerFunction('escapeUrl', [$escaper, 'escapeUrl']);
+        $engine->registerFunction('escapeHtml', [$this->escaper, 'escapeHtml']);
+        $engine->registerFunction('escapeHtmlAttr', [$this->escaper, 'escapeHtmlAttr']);
+        $engine->registerFunction('escapeJs', [$this->escaper, 'escapeJs']);
+        $engine->registerFunction('escapeCss', [$this->escaper, 'escapeCss']);
+        $engine->registerFunction('escapeUrl', [$this->escaper, 'escapeUrl']);
     }
 }
