@@ -5,8 +5,6 @@ language: php
 cache:
   directories:
     - $HOME/.composer/cache
-    - $HOME/.local
-    - vendor
 
 env:
   global:
@@ -22,21 +20,21 @@ matrix:
     - php: 5.6
       env:
         - DEPS=locked
-        - HELPERS_DEP="zendframework/zend-expressive-helpers:^3.0.1"
-    - php: 5.6
-      env:
-        - DEPS=locked
-        - TEST_COVERAGE=true
-    - php: 5.6
-      env:
-        - DEPS=latest
-    - php: 7
-      env:
-        - DEPS=lowest
-    - php: 7
-      env:
-        - DEPS=locked
         - CS_CHECK=true
+        - TEST_COVERAGE=true
+        - HELPERS_DEP="zendframework/zend-expressive-helpers:^3.0.1"
+    - php: 5.6
+      env:
+        - DEPS=locked
+    - php: 5.6
+      env:
+        - DEPS=latest
+    - php: 7
+      env:
+        - DEPS=lowest
+    - php: 7
+      env:
+        - DEPS=locked
     - php: 7
       env:
         - DEPS=locked
@@ -57,21 +55,21 @@ matrix:
     - php: 7.1
       env:
         - DEPS=latest
-    - php: nightly
+    - php: 7.2
       env:
         - DEPS=lowest
-    - php: nightly
+    - php: 7.2
       env:
         - DEPS=locked
-    - php: nightly
+    - php: 7.2
       env:
         - DEPS=locked
         - HELPERS_DEP="zendframework/zend-expressive-helpers:^3.0.1"
-    - php: nightly
+    - php: 7.2
       env:
         - DEPS=latest
   allow_failures:
-    - php: nightly
+    - php: 7.2
 
 before_install:
   - if [[ $TEST_COVERAGE != 'true' ]]; then phpenv config-rm xdebug.ini || return 0 ; fi
@@ -84,9 +82,7 @@ install:
   - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
   - if [[ $HELPERS_DEP != '' ]]; then travis_retry composer require $COMPOSER_ARGS --update-with-dependencies $HELPERS_DEP ; fi
   - if [[ $TEST_COVERAGE == 'true' ]]; then travis_retry composer require --dev $COMPOSER_ARGS $COVERAGE_DEPS ; fi
-  - stty cols 120
-  - export COLUMNS=120
-  - composer show
+  - stty cols 120 && composer show
 
 script:
   - if [[ $TEST_COVERAGE == 'true' ]]; then composer test-coverage ; else composer test ; fi
