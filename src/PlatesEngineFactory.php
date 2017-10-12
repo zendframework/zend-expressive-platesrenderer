@@ -10,6 +10,7 @@ namespace Zend\Expressive\Plates;
 use Interop\Container\ContainerInterface;
 use League\Plates\Engine as PlatesEngine;
 use League\Plates\Extension\ExtensionInterface;
+use Zend\Expressive\Helper;
 
 /**
  * Create and return a Plates engine instance.
@@ -72,6 +73,11 @@ class PlatesEngineFactory
     {
         if ($container->has(Extension\UrlExtension::class)) {
             $engine->loadExtension($container->get(Extension\UrlExtension::class));
+            return;
+        }
+
+        // If the extension was not explicitly registered, load it only if both helpers were registered
+        if (! $container->has(Helper\UrlHelper::class) || ! $container->has(Helper\ServerUrlHelper::class)) {
             return;
         }
 

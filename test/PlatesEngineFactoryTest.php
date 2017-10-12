@@ -178,4 +178,32 @@ class PlatesEngineFactoryTest extends TestCase
         $this->expectExceptionMessage('ExtensionInterface');
         $factory($this->container->reveal());
     }
+
+    public function provideHelpersToUnregister()
+    {
+        return [
+            'url-only' => [[UrlHelper::class]],
+            'server-url-only' => [[ServerUrlHelper::class]],
+            'both' => [[ServerUrlHelper::class, UrlHelper::class]],
+        ];
+    }
+
+    /**
+     * @dataProvider provideHelpersToUnregister
+     *
+     * @param array $helpers
+     */
+    public function testUrlExtensionIsNotLoadedIfHelpersAreNotRegistered(array $helpers)
+    {
+        $this->container->has('config')->willReturn(false);
+        foreach ($helpers as $helper) {
+            $this->container->has($helper)->willReturn(false);
+        }
+
+        $factory = new PlatesEngineFactory();
+        $engine = $factory($this->container->reveal());
+
+        $this->assertFalse($engine->doesFunctionExist('url'));
+        $this->assertFalse($engine->doesFunctionExist('serverurl'));
+    }
 }
