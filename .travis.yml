@@ -5,8 +5,6 @@ language: php
 cache:
   directories:
     - $HOME/.composer/cache
-    - $HOME/.local
-    - vendor
 
 env:
   global:
@@ -22,21 +20,21 @@ matrix:
     - php: 5.6
       env:
         - DEPS=locked
-        - HELPERS_DEP="zendframework/zend-expressive-helpers:^3.0.1"
-    - php: 5.6
-      env:
-        - DEPS=locked
-        - TEST_COVERAGE=true
-    - php: 5.6
-      env:
-        - DEPS=latest
-    - php: 7
-      env:
-        - DEPS=lowest
-    - php: 7
-      env:
-        - DEPS=locked
         - CS_CHECK=true
+        - TEST_COVERAGE=true
+        - HELPERS_DEP="zendframework/zend-expressive-helpers:^3.0.1"
+    - php: 5.6
+      env:
+        - DEPS=locked
+    - php: 5.6
+      env:
+        - DEPS=latest
+    - php: 7
+      env:
+        - DEPS=lowest
+    - php: 7
+      env:
+        - DEPS=locked
     - php: 7
       env:
         - DEPS=locked
@@ -57,21 +55,21 @@ matrix:
     - php: 7.1
       env:
         - DEPS=latest
-    - php: hhvm
+    - php: 7.2
       env:
         - DEPS=lowest
-    - php: hhvm
+    - php: 7.2
       env:
         - DEPS=locked
-    - php: hhvm
+    - php: 7.2
       env:
         - DEPS=locked
         - HELPERS_DEP="zendframework/zend-expressive-helpers:^3.0.1"
-    - php: hhvm
+    - php: 7.2
       env:
         - DEPS=latest
   allow_failures:
-    - php: hhvm
+    - php: 7.2
 
 before_install:
   - if [[ $TEST_COVERAGE != 'true' ]]; then phpenv config-rm xdebug.ini || return 0 ; fi
@@ -84,7 +82,7 @@ install:
   - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
   - if [[ $HELPERS_DEP != '' ]]; then travis_retry composer require $COMPOSER_ARGS --update-with-dependencies $HELPERS_DEP ; fi
   - if [[ $TEST_COVERAGE == 'true' ]]; then travis_retry composer require --dev $COMPOSER_ARGS $COVERAGE_DEPS ; fi
-  - composer show
+  - stty cols 120 && composer show
 
 script:
   - if [[ $TEST_COVERAGE == 'true' ]]; then composer test-coverage ; else composer test ; fi
@@ -96,13 +94,3 @@ after_script:
 
 notifications:
   email: false
-  irc:
-    channels:
-      - "irc.freenode.org#zftalk.dev"
-    on_success: change
-    on_failure: always
-  slack:
-    rooms:
-      - secure: "XdyhujAS1BFZ6S8nJ1+05YrJnKKWVFpouRZHsmxBh2MDLb3KNvr2Y1EavzgJ7W+iCaPssBoBtxpXmCWF5hLGGdp27kJxfZgn9S665nLClMThHKZ/soXeZX+zh79jD9+WL2qMLFCbmy2U0/muENV9QDno7razhGBlZVhu0IPAjtGd8GggXoVIPwET3Z5Z+Vcx3B4bFEjQfv8hZSxxkDNESYHYNfZJozqu+yG54ybOPf1J15kCwI8TJVxsnbT0TnRHVm7b+huJmkrWM2qk5cd2wHT4923fr/9GKB7e9vzFRgykytUOxtjZCV+vFxRzXeZp0f1IeDJ8Lr0TW9RSUzhDqa5E6MuVSIz/fxtLe/VaaZgtqp7I3fDZ3CXcpmdI7eCv7y07Zp/ypMRACZ7mbmeZuPfcHZH4zfEji9JhqMAB6yqfKA6imH5vU2sa3JX5DjWgiAh4P536enh+d30yZbdpkdBUlcNC22l4fOuIufuH6Zq7XhbvFQT1Z2A4aa6JBSXBiYwfEkFMzMA3pLyjspGMjFPhskpcrE2bAgG1ZWq3RTB3ldb5vcI80AvsFYZ33w4aRxC+VA3l4Z9yBYQ8LdmiLegt3RA9l9WnFh/sjIDzvLOAZcT+dyJQXU1MVL8XEQhmHPDFs8pzTrTLenIuCzJHwBwiAj8PEtvGsZB1GVBs4hE="
-    on_success: change
-    on_failure: always
