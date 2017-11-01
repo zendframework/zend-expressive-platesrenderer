@@ -8,6 +8,18 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
+### Changed
+
+- [#19](https://github.com/zendframework/zend-expressive-platesrenderer/pull/19)
+  changes all factories to typehint against the PSR-11
+  `Psr\Container\ContainerInterface` instead of
+  `Interop\Container\ContainerInterface`. This change is backwards compatible
+  for consumers, as container-interop interfaces extend from PSR-11 at this
+  time. However, if you were _extending_ any of the factories, you will need to
+  update your code to use the new typehints. (We expect very few extensions, as
+  typically delegator factories will be used to modify instances returned by
+  factories, or custom factories will be written.)
+
 ### Deprecated
 
 - Nothing.

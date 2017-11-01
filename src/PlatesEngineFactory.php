@@ -7,7 +7,7 @@
 
 namespace Zend\Expressive\Plates;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use League\Plates\Engine as PlatesEngine;
 use League\Plates\Extension\ExtensionInterface;
 use Zend\Expressive\Helper;
