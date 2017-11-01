@@ -17,6 +17,7 @@ use stdClass;
 use Zend\Expressive\Helper\ServerUrlHelper;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Plates\Exception\InvalidExtensionException;
+use Zend\Expressive\Plates\Extension\EscaperExtension;
 use Zend\Expressive\Plates\Extension\UrlExtension;
 use Zend\Expressive\Plates\PlatesEngineFactory;
 
@@ -41,6 +42,7 @@ class PlatesEngineFactoryTest extends TestCase
         );
 
         $this->container->has(UrlExtension::class)->willReturn(false);
+        $this->container->has(EscaperExtension::class)->willReturn(false);
     }
 
     public function testFactoryReturnsPlatesEngine()
@@ -62,6 +64,43 @@ class PlatesEngineFactoryTest extends TestCase
         $this->assertTrue($engine->doesFunctionExist('url'));
         $this->assertTrue($engine->doesFunctionExist('serverurl'));
     }
+
+    /**
+     * @depends testFactoryReturnsPlatesEngine
+     *
+     * @param PlatesEngine $engine
+     */
+    public function testEscaperExtensionIsRegisteredByDefault(PlatesEngine $engine)
+    {
+        $this->assertTrue($engine->doesFunctionExist('escapeHtml'));
+        $this->assertTrue($engine->doesFunctionExist('escapeHtmlAttr'));
+        $this->assertTrue($engine->doesFunctionExist('escapeJs'));
+        $this->assertTrue($engine->doesFunctionExist('escapeCss'));
+        $this->assertTrue($engine->doesFunctionExist('escapeUrl'));
+    }
+
+    /**
+     * @depends testEscaperExtensionIsRegisteredByDefault
+     */
+    public function testEscaperExtensionIsRegisteredFromContainer()
+    {
+        $escaperExtension = new EscaperExtension();
+
+        $this->container->has(EscaperExtension::class)->willReturn(true);
+        $this->container->has('config')->willReturn(false);
+
+        $this->container->get(EscaperExtension::class)->willReturn($escaperExtension);
+
+        $factory = new PlatesEngineFactory();
+        $engine = $factory($this->container->reveal());
+
+        $this->assertTrue($engine->doesFunctionExist('escapeHtml'));
+        $this->assertTrue($engine->doesFunctionExist('escapeHtmlAttr'));
+        $this->assertTrue($engine->doesFunctionExist('escapeJs'));
+        $this->assertTrue($engine->doesFunctionExist('escapeCss'));
+        $this->assertTrue($engine->doesFunctionExist('escapeUrl'));
+    }
+
 
     public function testFactoryCanRegisterConfiguredExtensions()
     {
