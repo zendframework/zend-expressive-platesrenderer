@@ -6,7 +6,14 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#22](https://github.com/zendframework/zend-expressive-platesrenderer/pull/22)
+  adds `Zend\Expressive\PlatesRenderer\Extension\EscaperExtension`, as well as a
+  factory for the extension. This extension provides context-specific escaper
+  helpers to the Plates engine, based on zend-escaper: `escapeHtml()`,
+  `escapeHtmlAttr()`, `escapeJs()`, `escapeCss()`, and `escapeUrl()`. These are
+  registered by default with the Plates engine. If you wish to provide
+  alternates, provide a `Zend\Expressive\PlatesRenderer\Extension\EscaperExtension` 
+  service that provides the custom extension.
 
 ### Changed
 
