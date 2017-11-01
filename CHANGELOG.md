@@ -36,7 +36,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#25](https://github.com/zendframework/zend-expressive-platesrenderer/pull/25)
+  modifies the `PlatesEngineFactory` such that it now skips injection of the
+  `UrlExtension` if zend-expressive-helpers is not installed. This change allows
+  usage of the package outside the Expressive ecosystem.
 
 ## 1.3.1 - 2017-03-14
 
