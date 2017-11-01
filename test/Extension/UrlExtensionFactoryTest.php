@@ -7,7 +7,7 @@
 
 namespace ZendTest\Expressive\Plates\Extension;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ProphecyInterface;
 use Zend\Expressive\Helper\ServerUrlHelper;

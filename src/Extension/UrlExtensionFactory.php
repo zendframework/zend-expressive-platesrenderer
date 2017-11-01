@@ -7,7 +7,7 @@
 
 namespace Zend\Expressive\Plates\Extension;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Helper\ServerUrlHelper;
 use Zend\Expressive\Plates\Exception\MissingHelperException;

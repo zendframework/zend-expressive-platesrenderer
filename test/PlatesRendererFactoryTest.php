@@ -7,7 +7,7 @@
 
 namespace ZendTest\Expressive\Plates;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use League\Plates\Engine as PlatesEngine;
 use LogicException;
 use PHPUnit\Framework\TestCase;
