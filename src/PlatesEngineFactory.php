@@ -7,7 +7,7 @@
 
 namespace Zend\Expressive\Plates;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use League\Plates\Engine as PlatesEngine;
 use League\Plates\Extension\ExtensionInterface;
 use Zend\Expressive\Helper;
@@ -28,10 +28,11 @@ use Zend\Expressive\Helper;
  * ]
  * </code>
  *
- * By default, this factory attaches the Extension\UrlExtension to
- * the engine. You can override the functions that extension exposes
- * by providing an extension class in your extensions array, or providing
- * an alternative Zend\Expressive\Plates\Extension\UrlExtension service.
+ * By default, this factory attaches the Extension\UrlExtension
+ * and Extension\EscaperExtension to the engine. You can override
+ * the functions that extension exposes by providing an extension
+ * class in your extensions array, or providing an alternative
+ * Zend\Expressive\Plates\Extension\UrlExtension service.
  */
 class PlatesEngineFactory
 {
@@ -48,6 +49,7 @@ class PlatesEngineFactory
         $engine = new PlatesEngine();
 
         $this->injectUrlExtension($container, $engine);
+        $this->injectEscaperExtension($container, $engine);
 
         if (isset($config['extensions']) && is_array($config['extensions'])) {
             $this->injectExtensions($container, $engine, $config['extensions']);
@@ -82,6 +84,30 @@ class PlatesEngineFactory
         }
 
         $extensionFactory = new Extension\UrlExtensionFactory();
+        $engine->loadExtension($extensionFactory($container));
+    }
+
+    /**
+     * Inject the Escaper extension provided by this package.
+     *
+     * If a service by the name of the EscaperExtension class exists, fetches
+     * and loads it.
+     *
+     * Otherwise, instantiates the EscaperExtensionFactory, and invokes it with
+     * the container, loading the result into the engine.
+     *
+     * @param ContainerInterface $container
+     * @param PlatesEngine $engine
+     * @return void
+     */
+    private function injectEscaperExtension(ContainerInterface $container, PlatesEngine $engine)
+    {
+        if ($container->has(Extension\EscaperExtension::class)) {
+            $engine->loadExtension($container->get(Extension\EscaperExtension::class));
+            return;
+        }
+
+        $extensionFactory = new Extension\EscaperExtensionFactory();
         $engine->loadExtension($extensionFactory($container));
     }
 

@@ -7,7 +7,7 @@
 
 namespace ZendTest\Expressive\Plates;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use League\Plates\Engine as PlatesEngine;
 use LogicException;
 use PHPUnit\Framework\TestCase;
@@ -15,6 +15,7 @@ use Prophecy\Prophecy\ProphecyInterface;
 use ReflectionProperty;
 use Zend\Expressive\Helper\ServerUrlHelper;
 use Zend\Expressive\Helper\UrlHelper;
+use Zend\Expressive\Plates\Extension\EscaperExtension;
 use Zend\Expressive\Plates\Extension\UrlExtension;
 use Zend\Expressive\Plates\PlatesRendererFactory;
 use Zend\Expressive\Plates\PlatesRenderer;
@@ -42,6 +43,7 @@ class PlatesRendererFactoryTest extends TestCase
     {
         $this->container->has(PlatesEngine::class)->willReturn(false);
         $this->container->has(UrlExtension::class)->willReturn(false);
+        $this->container->has(EscaperExtension::class)->willReturn(false);
         $this->container->has(UrlHelper::class)->willReturn(true);
         $this->container->has(ServerUrlHelper::class)->willReturn(true);
         $this->container->get(UrlHelper::class)->willReturn($this->prophesize(UrlHelper::class)->reveal());
