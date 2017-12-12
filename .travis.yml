@@ -23,22 +23,10 @@ matrix:
         - TEST_COVERAGE=true
     - php: 7.1
       env:
-        - DEPS=locked
-    - php: 7.1
-      env:
-        - DEPS=locked
-    - php: 7.1
-      env:
         - DEPS=latest
     - php: 7.2
       env:
         - DEPS=lowest
-    - php: 7.2
-      env:
-        - DEPS=locked
-    - php: 7.2
-      env:
-        - DEPS=locked
     - php: 7.2
       env:
         - DEPS=locked
