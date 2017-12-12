@@ -17,6 +17,10 @@ All notable changes to this project will be documented in this file, in reverse 
   nullable types and void types, whenever possible, in order to improve
   reliability and predictability of operation.
 
+- [#28](https://github.com/zendframework/zend-expressive-platesrenderer/pull/28)
+  updates the package `ExceptionInterface` to extend from the
+  `ExceptionInterface` provided in zend-expressive-template.
+
 ### Deprecated
 
 - Nothing.
