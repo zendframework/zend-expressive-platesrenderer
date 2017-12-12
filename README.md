@@ -1,7 +1,7 @@
 # Plates Integration for Expressive
 
 [![Build Status](https://secure.travis-ci.org/zendframework/zend-expressive-platesrenderer.svg?branch=master)](https://secure.travis-ci.org/zendframework/zend-expressive-platesrenderer)
-[![Coverage Status](https://coveralls.io/repos/zendframework/zend-expressive-platesrenderer/badge.svg?branch=master)](https://coveralls.io/r/zendframework/zend-expressive-platesrenderer?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/zendframework/zend-expressive-platesrenderer/badge.svg?branch=master)](https://coveralls.io/github/zendframework/zend-expressive-platesrenderer?branch=master)
 
 Provides integration with [Plates](http://platesphp.com/) for
 [Expressive](https://github.com/zendframework/zend-expressive).
