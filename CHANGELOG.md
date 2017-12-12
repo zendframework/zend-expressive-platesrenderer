@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 2.0.0alpha1 - TBD
+
+### Added
+
+- [#27](https://github.com/zendframework/zend-expressive-platesrenderer/pull/27)
+  adds support for the zend-expressive-template v2 series,
+  zend-expressive-router v3 series, and zend-expressive-helpers v5 series.
+
+### Changed
+
+- [#27](https://github.com/zendframework/zend-expressive-platesrenderer/pull/27)
+  updates all classes to use scalar typehints and return typehints, including
+  nullable types and void types, whenever possible, in order to improve
+  reliability and predictability of operation.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- [#27](https://github.com/zendframework/zend-expressive-platesrenderer/pull/27)
+  drops support for zend-expressive-template v1.
+
+- [#27](https://github.com/zendframework/zend-expressive-platesrenderer/pull/27)
+  drops support for PHP versions prior to PHP 7.1.
+
+### Fixed
+
+- Nothing.
+
 ## 1.5.0 - TBD
 
 ### Added
