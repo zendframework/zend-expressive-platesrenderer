@@ -1,9 +1,11 @@
 <?php
 /**
  * @see       https://github.com/zendframework/zend-expressive-platesrenderer for the canonical source repository
- * @copyright Copyright (c) 2015-2017 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2015-2017 Zend Technologies USA Inc. (https://www.zend.com)
  * @license   https://github.com/zendframework/zend-expressive-platesrenderer/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Expressive\Plates;
 
@@ -34,11 +36,7 @@ use League\Plates\Engine as PlatesEngine;
  */
 class PlatesRendererFactory
 {
-    /**
-     * @param ContainerInterface $container
-     * @return PlatesRenderer
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container) : PlatesRenderer
     {
         $config = $container->has('config') ? $container->get('config') : [];
         $config = isset($config['templates']) ? $config['templates'] : [];
@@ -73,11 +71,8 @@ class PlatesRendererFactory
      *
      * Otherwise, invokes the PlatesEngineFactory with the $container to create
      * and return the instance.
-     *
-     * @param ContainerInterface $container
-     * @return PlatesEngine
      */
-    private function createEngine(ContainerInterface $container)
+    private function createEngine(ContainerInterface $container) : PlatesEngine
     {
         if ($container->has(PlatesEngine::class)) {
             return $container->get(PlatesEngine::class);
