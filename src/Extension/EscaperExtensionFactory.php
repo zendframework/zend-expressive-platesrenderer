@@ -27,11 +27,9 @@ use Zend\Escaper\Exception\InvalidArgumentException;
 class EscaperExtensionFactory
 {
     /**
-     * @param ContainerInterface $container
-     * @return EscaperExtension
      * @throws InvalidArgumentException
      */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container) : EscaperExtension
     {
         $config = $container->has('config') ? $container->get('config') : [];
         $config = isset($config['plates']) ? $config['plates'] : [];

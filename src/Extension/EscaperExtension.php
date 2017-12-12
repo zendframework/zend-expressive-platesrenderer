@@ -23,11 +23,8 @@ class EscaperExtension implements ExtensionInterface
 
     /**
      * EscaperExtension constructor.
-     *
-     * @param null|string $encoding
-     * @throws InvalidArgumentException
      */
-    public function __construct($encoding = null)
+    public function __construct(string $encoding = null)
     {
         $this->escaper = new Escaper($encoding);
     }
@@ -46,7 +43,7 @@ class EscaperExtension implements ExtensionInterface
      * @param Engine $engine
      * @return void
      */
-    public function register(Engine $engine)
+    public function register(Engine $engine) : void
     {
         $engine->registerFunction('escapeHtml', [$this->escaper, 'escapeHtml']);
         $engine->registerFunction('escapeHtmlAttr', [$this->escaper, 'escapeHtmlAttr']);

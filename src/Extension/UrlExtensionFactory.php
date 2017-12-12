@@ -20,12 +20,10 @@ use Zend\Expressive\Plates\Exception\MissingHelperException;
 class UrlExtensionFactory
 {
     /**
-     * @param ContainerInterface $container
-     * @return UrlExtension
      * @throws MissingHelperException if UrlHelper service is missing.
      * @throws MissingHelperException if ServerUrlHelper service is missing.
      */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container) : UrlExtension
     {
         if (! $container->has(UrlHelper::class)) {
             throw new MissingHelperException(sprintf(

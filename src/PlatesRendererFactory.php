@@ -36,11 +36,7 @@ use League\Plates\Engine as PlatesEngine;
  */
 class PlatesRendererFactory
 {
-    /**
-     * @param ContainerInterface $container
-     * @return PlatesRenderer
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container) : PlatesRenderer
     {
         $config = $container->has('config') ? $container->get('config') : [];
         $config = isset($config['templates']) ? $config['templates'] : [];
@@ -75,11 +71,8 @@ class PlatesRendererFactory
      *
      * Otherwise, invokes the PlatesEngineFactory with the $container to create
      * and return the instance.
-     *
-     * @param ContainerInterface $container
-     * @return PlatesEngine
      */
-    private function createEngine(ContainerInterface $container)
+    private function createEngine(ContainerInterface $container) : PlatesEngine
     {
         if ($container->has(PlatesEngine::class)) {
             return $container->get(PlatesEngine::class);
