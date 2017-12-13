@@ -10,6 +10,14 @@ All notable changes to this project will be documented in this file, in reverse 
   adds support for the zend-expressive-template v2 series,
   zend-expressive-router v3 series, and zend-expressive-helpers v5 series.
 
+- [#29](https://github.com/zendframework/zend-expressive-platesrenderer/pull/29)
+  adds a `ConfigProvider` class with default service wiring and configuration
+  for the component. It also updates `composer.json` to add
+  `extra.zf.config-provider` configuration to notify zend-component-installer
+  of the shipped `ConfigProvider` class, allowing the plugin to inject the
+  `ConfigProvider` in your application configuration during initial
+  installation.
+
 ### Changed
 
 - [#27](https://github.com/zendframework/zend-expressive-platesrenderer/pull/27)
