@@ -2,12 +2,13 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.0.0alpha1 - TBD
+## 2.0.0alpha1 - 2018-02-06
 
 ### Added
 
-- [#27](https://github.com/zendframework/zend-expressive-platesrenderer/pull/27)
-  adds support for the zend-expressive-template v2 series,
+- [#27](https://github.com/zendframework/zend-expressive-platesrenderer/pull/27) and
+  [#32](https://github.com/zendframework/zend-expressive-platesrenderer/pull/32)
+  add support for the zend-expressive-template v2 series,
   zend-expressive-router v3 series, and zend-expressive-helpers v5 series.
 
 - [#29](https://github.com/zendframework/zend-expressive-platesrenderer/pull/29)
