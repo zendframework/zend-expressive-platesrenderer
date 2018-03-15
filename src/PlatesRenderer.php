@@ -16,6 +16,15 @@ use Zend\Expressive\Template\Exception;
 use Zend\Expressive\Template\TemplatePath;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
+use function get_class;
+use function gettype;
+use function is_object;
+use function is_string;
+use function sprintf;
+use function trigger_error;
+
+use const E_USER_WARNING;
+
 /**
  * Template implementation bridging league/plates
  */

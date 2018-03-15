@@ -12,9 +12,21 @@ namespace ZendTest\Expressive\Plates;
 use ArrayObject;
 use League\Plates\Engine;
 use PHPUnit\Framework\TestCase;
-use Zend\Expressive\Template\Exception;
 use Zend\Expressive\Plates\PlatesRenderer;
+use Zend\Expressive\Template\Exception;
 use Zend\Expressive\Template\TemplatePath;
+
+use function array_shift;
+use function file_get_contents;
+use function restore_error_handler;
+use function set_error_handler;
+use function sprintf;
+use function str_replace;
+use function uniqid;
+use function var_export;
+
+use const E_NOTICE;
+use const E_USER_WARNING;
 
 class PlatesRendererTest extends TestCase
 {
