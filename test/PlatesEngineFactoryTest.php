@@ -23,6 +23,8 @@ use Zend\Expressive\Plates\Extension\EscaperExtension;
 use Zend\Expressive\Plates\Extension\UrlExtension;
 use Zend\Expressive\Plates\PlatesEngineFactory;
 
+use function is_string;
+
 class PlatesEngineFactoryTest extends TestCase
 {
     /** @var ContainerInterface|ProphecyInterface */

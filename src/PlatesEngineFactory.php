@@ -14,6 +14,14 @@ use League\Plates\Engine as PlatesEngine;
 use League\Plates\Extension\ExtensionInterface;
 use Zend\Expressive\Helper;
 
+use function class_exists;
+use function get_class;
+use function gettype;
+use function is_array;
+use function is_object;
+use function is_string;
+use function sprintf;
+
 /**
  * Create and return a Plates engine instance.
  *

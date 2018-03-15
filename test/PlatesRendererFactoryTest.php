@@ -23,6 +23,12 @@ use Zend\Expressive\Plates\PlatesRendererFactory;
 use Zend\Expressive\Plates\PlatesRenderer;
 use Zend\Expressive\Template\TemplatePath;
 
+use function restore_error_handler;
+use function set_error_handler;
+use function sprintf;
+
+use const E_USER_WARNING;
+
 class PlatesRendererFactoryTest extends TestCase
 {
     /**

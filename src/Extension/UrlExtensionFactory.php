@@ -14,6 +14,8 @@ use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Helper\ServerUrlHelper;
 use Zend\Expressive\Plates\Exception\MissingHelperException;
 
+use function sprintf;
+
 /**
  * Factory for creating a UrlExtension instance.
  */

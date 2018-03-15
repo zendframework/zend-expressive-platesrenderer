@@ -15,6 +15,8 @@ use Prophecy\Argument;
 use Zend\Escaper\Escaper;
 use Zend\Expressive\Plates\Extension\EscaperExtension;
 
+use function is_array;
+
 class EscaperExtensionTest extends TestCase
 {
     public function testRegistersEscaperFunctionsWithEngine()

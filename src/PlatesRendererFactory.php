@@ -12,6 +12,9 @@ namespace Zend\Expressive\Plates;
 use Psr\Container\ContainerInterface;
 use League\Plates\Engine as PlatesEngine;
 
+use function is_array;
+use function is_numeric;
+
 /**
  * Create and return a Plates template instance.
  *
