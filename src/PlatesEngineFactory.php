@@ -1,16 +1,26 @@
 <?php
 /**
  * @see       https://github.com/zendframework/zend-expressive-platesrenderer for the canonical source repository
- * @copyright Copyright (c) 2016-2017 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2016-2017 Zend Technologies USA Inc. (https://www.zend.com)
  * @license   https://github.com/zendframework/zend-expressive-platesrenderer/blob/master/LICENSE.md New BSD License
  */
 
+declare(strict_types=1);
+
 namespace Zend\Expressive\Plates;
 
-use Psr\Container\ContainerInterface;
 use League\Plates\Engine as PlatesEngine;
 use League\Plates\Extension\ExtensionInterface;
+use Psr\Container\ContainerInterface;
 use Zend\Expressive\Helper;
+
+use function class_exists;
+use function get_class;
+use function gettype;
+use function is_array;
+use function is_object;
+use function is_string;
+use function sprintf;
 
 /**
  * Create and return a Plates engine instance.
@@ -36,11 +46,7 @@ use Zend\Expressive\Helper;
  */
 class PlatesEngineFactory
 {
-    /**
-     * @param ContainerInterface $container
-     * @return PlatesEngine
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container) : PlatesEngine
     {
         $config = $container->has('config') ? $container->get('config') : [];
         $config = isset($config['plates']) ? $config['plates'] : [];
@@ -66,12 +72,8 @@ class PlatesEngineFactory
      *
      * Otherwise, instantiates the UrlExtensionFactory, and invokes it with
      * the container, loading the result into the engine.
-     *
-     * @param ContainerInterface $container
-     * @param PlatesEngine $engine
-     * @return void
      */
-    private function injectUrlExtension(ContainerInterface $container, PlatesEngine $engine)
+    private function injectUrlExtension(ContainerInterface $container, PlatesEngine $engine) : void
     {
         if ($container->has(Extension\UrlExtension::class)) {
             $engine->loadExtension($container->get(Extension\UrlExtension::class));
@@ -95,12 +97,8 @@ class PlatesEngineFactory
      *
      * Otherwise, instantiates the EscaperExtensionFactory, and invokes it with
      * the container, loading the result into the engine.
-     *
-     * @param ContainerInterface $container
-     * @param PlatesEngine $engine
-     * @return void
      */
-    private function injectEscaperExtension(ContainerInterface $container, PlatesEngine $engine)
+    private function injectEscaperExtension(ContainerInterface $container, PlatesEngine $engine) : void
     {
         if ($container->has(Extension\EscaperExtension::class)) {
             $engine->loadExtension($container->get(Extension\EscaperExtension::class));
@@ -113,12 +111,8 @@ class PlatesEngineFactory
 
     /**
      * Inject all configured extensions into the engine.
-     * @param ContainerInterface $container
-     * @param PlatesEngine $engine
-     * @param array $extensions
-     * @return void
      */
-    private function injectExtensions(ContainerInterface $container, PlatesEngine $engine, array $extensions)
+    private function injectExtensions(ContainerInterface $container, PlatesEngine $engine, array $extensions) : void
     {
         foreach ($extensions as $extension) {
             $this->injectExtension($container, $engine, $extension);
@@ -136,16 +130,13 @@ class PlatesEngineFactory
      *
      * If anything else is provided, an exception is raised.
      *
-     * @param ContainerInterface $container
-     * @param PlatesEngine $engine
      * @param ExtensionInterface|string $extension
-     * @return void
      * @throws Exception\InvalidExtensionException for non-string,
      *     non-extension $extension values.
      * @throws Exception\InvalidExtensionException for string $extension values
      *     that do not resolve to an extension instance.
      */
-    private function injectExtension(ContainerInterface $container, PlatesEngine $engine, $extension)
+    private function injectExtension(ContainerInterface $container, PlatesEngine $engine, $extension) : void
     {
         if ($extension instanceof ExtensionInterface) {
             $engine->loadExtension($extension);

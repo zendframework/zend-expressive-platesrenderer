@@ -1,9 +1,11 @@
 <?php
 /**
  * @see       https://github.com/zendframework/zend-expressive-platesrenderer for the canonical source repository
- * @copyright Copyright (c) 2015-2017 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2015-2017 Zend Technologies USA Inc. (https://www.zend.com)
  * @license   https://github.com/zendframework/zend-expressive-platesrenderer/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Expressive\Plates;
 
@@ -13,6 +15,15 @@ use Zend\Expressive\Template\ArrayParametersTrait;
 use Zend\Expressive\Template\Exception;
 use Zend\Expressive\Template\TemplatePath;
 use Zend\Expressive\Template\TemplateRendererInterface;
+
+use function get_class;
+use function gettype;
+use function is_object;
+use function is_string;
+use function sprintf;
+use function trigger_error;
+
+use const E_USER_WARNING;
 
 /**
  * Template implementation bridging league/plates
@@ -35,13 +46,9 @@ class PlatesRenderer implements TemplateRendererInterface
     }
 
     /**
-     * Render
-     *
-     * @param string $name
-     * @param array|object $params
-     * @return string
+     * {@inheritDoc}
      */
-    public function render($name, $params = [])
+    public function render(string $name, $params = []) : string
     {
         $params = $this->normalizeParams($params);
         return $this->template->render($name, $params);
@@ -54,12 +61,8 @@ class PlatesRenderer implements TemplateRendererInterface
      * E_USER_WARNING and act as a no-op. Plates does not handle non-namespaced
      * folders, only the default directory; overwriting the default directory
      * is likely unintended.
-     *
-     * @param string $path
-     * @param string $namespace
-     * @return void
      */
-    public function addPath($path, $namespace = null)
+    public function addPath(string $path, string $namespace = null) : void
     {
         if (! $namespace && ! $this->template->getDirectory()) {
             $this->template->setDirectory($path);
@@ -75,11 +78,9 @@ class PlatesRenderer implements TemplateRendererInterface
     }
 
     /**
-     * Get the template directories
-     *
-     * @return TemplatePath[]
+     * {@inheritDoc}
      */
-    public function getPaths()
+    public function getPaths() : array
     {
         $paths = $this->template->getDirectory()
             ? [ $this->getDefaultPath() ]
@@ -96,7 +97,7 @@ class PlatesRenderer implements TemplateRendererInterface
      *
      * {@inheritDoc}
      */
-    public function addDefaultParam($templateName, $param, $value)
+    public function addDefaultParam(string $templateName, string $param, $value) : void
     {
         if (! is_string($templateName) || empty($templateName)) {
             throw new Exception\InvalidArgumentException(sprintf(
@@ -124,21 +125,16 @@ class PlatesRenderer implements TemplateRendererInterface
 
     /**
      * Create a default Plates engine
-     *
-     * @params string $path
-     * @return Engine
      */
-    private function createTemplate()
+    private function createTemplate() : Engine
     {
         return new Engine();
     }
 
     /**
      * Create and return a TemplatePath representing the default Plates directory.
-     *
-     * @return TemplatePath
      */
-    private function getDefaultPath()
+    private function getDefaultPath() : TemplatePath
     {
         return new TemplatePath($this->template->getDirectory());
     }
@@ -148,7 +144,7 @@ class PlatesRenderer implements TemplateRendererInterface
      *
      * @return \League\Plates\Template\Folder[]
      */
-    private function getPlatesFolders()
+    private function getPlatesFolders() : array
     {
         $folders = $this->template->getFolders();
         $r = new ReflectionProperty($folders, 'folders');

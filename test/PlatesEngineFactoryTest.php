@@ -1,18 +1,20 @@
 <?php
 /**
  * @see       https://github.com/zendframework/zend-expressive-platesrenderer for the canonical source repository
- * @copyright Copyright (c) 2016-2017 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2016-2017 Zend Technologies USA Inc. (https://www.zend.com)
  * @license   https://github.com/zendframework/zend-expressive-platesrenderer/blob/master/LICENSE.md New BSD License
  */
 
+declare(strict_types=1);
+
 namespace ZendTest\Expressive\Plates;
 
-use Psr\Container\ContainerInterface;
 use League\Plates\Engine as PlatesEngine;
 use League\Plates\Extension\ExtensionInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ProphecyInterface;
+use Psr\Container\ContainerInterface;
 use stdClass;
 use Zend\Expressive\Helper\ServerUrlHelper;
 use Zend\Expressive\Helper\UrlHelper;
@@ -20,6 +22,8 @@ use Zend\Expressive\Plates\Exception\InvalidExtensionException;
 use Zend\Expressive\Plates\Extension\EscaperExtension;
 use Zend\Expressive\Plates\Extension\UrlExtension;
 use Zend\Expressive\Plates\PlatesEngineFactory;
+
+use function is_string;
 
 class PlatesEngineFactoryTest extends TestCase
 {
