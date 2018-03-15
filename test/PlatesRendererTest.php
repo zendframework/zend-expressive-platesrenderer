@@ -1,18 +1,32 @@
 <?php
 /**
  * @see       https://github.com/zendframework/zend-expressive-platesrenderer for the canonical source repository
- * @copyright Copyright (c) 2015-2017 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2015-2017 Zend Technologies USA Inc. (https://www.zend.com)
  * @license   https://github.com/zendframework/zend-expressive-platesrenderer/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace ZendTest\Expressive\Plates;
 
 use ArrayObject;
 use League\Plates\Engine;
 use PHPUnit\Framework\TestCase;
-use Zend\Expressive\Template\Exception;
 use Zend\Expressive\Plates\PlatesRenderer;
+use Zend\Expressive\Template\Exception;
 use Zend\Expressive\Template\TemplatePath;
+
+use function array_shift;
+use function file_get_contents;
+use function restore_error_handler;
+use function set_error_handler;
+use function sprintf;
+use function str_replace;
+use function uniqid;
+use function var_export;
+
+use const E_NOTICE;
+use const E_USER_WARNING;
 
 class PlatesRendererTest extends TestCase
 {
@@ -46,7 +60,10 @@ class PlatesRendererTest extends TestCase
 
     public function assertTemplatePathNamespace($namespace, TemplatePath $templatePath, $message = null)
     {
-        $message = $message ?: sprintf('Failed to assert TemplatePath namespace matched %s', var_export($namespace, 1));
+        $message = $message ?: sprintf(
+            'Failed to assert TemplatePath namespace matched %s',
+            var_export($namespace, true)
+        );
         $this->assertEquals($namespace, $templatePath->getNamespace(), $message);
     }
 

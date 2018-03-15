@@ -1,16 +1,17 @@
 <?php
 /**
  * @see       https://github.com/zendframework/zend-expressive-platesrenderer for the canonical source repository
- * @copyright Copyright (c) 2016-2017 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2016-2017 Zend Technologies USA Inc. (https://www.zend.com)
  * @license   https://github.com/zendframework/zend-expressive-platesrenderer/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Expressive\Plates\Extension;
 
 use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 use Zend\Escaper\Escaper;
-use Zend\Escaper\Exception\InvalidArgumentException;
 
 class EscaperExtension implements ExtensionInterface
 {
@@ -21,11 +22,8 @@ class EscaperExtension implements ExtensionInterface
 
     /**
      * EscaperExtension constructor.
-     *
-     * @param null|string $encoding
-     * @throws InvalidArgumentException
      */
-    public function __construct($encoding = null)
+    public function __construct(string $encoding = null)
     {
         $this->escaper = new Escaper($encoding);
     }
@@ -44,7 +42,7 @@ class EscaperExtension implements ExtensionInterface
      * @param Engine $engine
      * @return void
      */
-    public function register(Engine $engine)
+    public function register(Engine $engine) : void
     {
         $engine->registerFunction('escapeHtml', [$this->escaper, 'escapeHtml']);
         $engine->registerFunction('escapeHtmlAttr', [$this->escaper, 'escapeHtmlAttr']);

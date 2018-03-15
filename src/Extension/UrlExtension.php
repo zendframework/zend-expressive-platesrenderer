@@ -1,9 +1,11 @@
 <?php
 /**
  * @see       https://github.com/zendframework/zend-expressive-platesrenderer for the canonical source repository
- * @copyright Copyright (c) 2016-2017 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2016-2017 Zend Technologies USA Inc. (https://www.zend.com)
  * @license   https://github.com/zendframework/zend-expressive-platesrenderer/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Expressive\Plates\Extension;
 
@@ -41,11 +43,8 @@ class UrlExtension implements ExtensionInterface
      *
      * - url($route = null, array $params = []) : string
      * - serverurl($path = null) : string
-     *
-     * @param Engine $engine
-     * @return void
      */
-    public function register(Engine $engine)
+    public function register(Engine $engine) : void
     {
         $engine->registerFunction('url', [$this, 'generateUrl']);
         $engine->registerFunction('serverurl', [$this, 'generateServerUrl']);
@@ -54,10 +53,6 @@ class UrlExtension implements ExtensionInterface
     /**
      * Generate a URL from either the currently matched route or the specfied route.
      *
-     * @param string $routeName
-     * @param array  $routeParams
-     * @param array  $queryParams
-     * @param string $fragmentIdentifier
      * @param array  $options Can have the following keys:
      *     - router (array): contains options to be passed to the router
      *     - reuse_result_params (bool): indicates if the current RouteResult
@@ -65,10 +60,10 @@ class UrlExtension implements ExtensionInterface
      * @return string
      */
     public function generateUrl(
-        $routeName = null,
+        string $routeName = null,
         array $routeParams = [],
         array $queryParams = [],
-        $fragmentIdentifier = null,
+        ?string $fragmentIdentifier = null,
         array $options = []
     ) {
         return $this->urlHelper->generate($routeName, $routeParams, $queryParams, $fragmentIdentifier, $options);
@@ -76,11 +71,8 @@ class UrlExtension implements ExtensionInterface
 
     /**
      * Generate a fully qualified URI, relative to $path.
-     *
-     * @param null|string $path
-     * @return string
      */
-    public function generateServerUrl($path = null)
+    public function generateServerUrl(string $path = null) : string
     {
         return $this->serverUrlHelper->generate($path);
     }
