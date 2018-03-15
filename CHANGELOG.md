@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.0.0alpha1 - 2018-02-06
+## 2.0.0 - 2018-03-15
 
 ### Added
 
@@ -41,50 +41,6 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - [#27](https://github.com/zendframework/zend-expressive-platesrenderer/pull/27)
   drops support for PHP versions prior to PHP 7.1.
-
-### Fixed
-
-- Nothing.
-
-## 1.5.0 - TBD
-
-### Added
-
-- Nothing.
-
-### Changed
-
-- Nothing.
-
-### Deprecated
-
-- Nothing.
-
-### Removed
-
-- Nothing.
-
-### Fixed
-
-- Nothing.
-
-## 1.4.1 - TBD
-
-### Added
-
-- Nothing.
-
-### Changed
-
-- Nothing.
-
-### Deprecated
-
-- Nothing.
-
-### Removed
-
-- Nothing.
 
 ### Fixed
 
