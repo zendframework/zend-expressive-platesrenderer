@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Zend\Expressive\Plates\Extension;
 
 use Psr\Container\ContainerInterface;
-use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Helper\ServerUrlHelper;
+use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Plates\Exception\MissingHelperException;
 
 use function sprintf;

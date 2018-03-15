@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace ZendTest\Expressive\Plates\Extension;
 
-use Psr\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ProphecyInterface;
+use Psr\Container\ContainerInterface;
 use Zend\Expressive\Helper\ServerUrlHelper;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Plates\Exception\MissingHelperException;

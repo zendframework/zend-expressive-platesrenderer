@@ -12,7 +12,6 @@ namespace Zend\Expressive\Plates\Extension;
 use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 use Zend\Escaper\Escaper;
-use Zend\Escaper\Exception\InvalidArgumentException;
 
 class EscaperExtension implements ExtensionInterface
 {

@@ -9,18 +9,18 @@ declare(strict_types=1);
 
 namespace ZendTest\Expressive\Plates;
 
-use Psr\Container\ContainerInterface;
 use League\Plates\Engine as PlatesEngine;
 use LogicException;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ProphecyInterface;
+use Psr\Container\ContainerInterface;
 use ReflectionProperty;
 use Zend\Expressive\Helper\ServerUrlHelper;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Plates\Extension\EscaperExtension;
 use Zend\Expressive\Plates\Extension\UrlExtension;
-use Zend\Expressive\Plates\PlatesRendererFactory;
 use Zend\Expressive\Plates\PlatesRenderer;
+use Zend\Expressive\Plates\PlatesRendererFactory;
 use Zend\Expressive\Template\TemplatePath;
 
 use function restore_error_handler;

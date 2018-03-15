@@ -12,8 +12,8 @@ namespace ZendTest\Expressive\Plates;
 use ArrayObject;
 use League\Plates\Engine;
 use PHPUnit\Framework\TestCase;
-use Zend\Expressive\Template\Exception;
 use Zend\Expressive\Plates\PlatesRenderer;
+use Zend\Expressive\Template\Exception;
 use Zend\Expressive\Template\TemplatePath;
 
 use function array_shift;

@@ -14,13 +14,8 @@ use Prophecy\Prophecy\ProphecyInterface;
 use Psr\Container\ContainerInterface;
 use Zend\Escaper\Escaper;
 use Zend\Escaper\Exception\InvalidArgumentException;
-use Zend\Expressive\Helper\ServerUrlHelper;
-use Zend\Expressive\Helper\UrlHelper;
-use Zend\Expressive\Plates\Exception\MissingHelperException;
 use Zend\Expressive\Plates\Extension\EscaperExtension;
 use Zend\Expressive\Plates\Extension\EscaperExtensionFactory;
-use Zend\Expressive\Plates\Extension\UrlExtension;
-use Zend\Expressive\Plates\Extension\UrlExtensionFactory;
 
 class EscaperExtensionFactoryTest extends TestCase
 {

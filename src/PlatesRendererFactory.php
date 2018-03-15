@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace Zend\Expressive\Plates;
 
-use Psr\Container\ContainerInterface;
 use League\Plates\Engine as PlatesEngine;
+use Psr\Container\ContainerInterface;
 
 use function is_array;
 use function is_numeric;

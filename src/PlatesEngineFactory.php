@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace Zend\Expressive\Plates;
 
-use Psr\Container\ContainerInterface;
 use League\Plates\Engine as PlatesEngine;
 use League\Plates\Extension\ExtensionInterface;
+use Psr\Container\ContainerInterface;
 use Zend\Expressive\Helper;
 
 use function class_exists;
