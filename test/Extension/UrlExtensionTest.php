@@ -12,9 +12,11 @@ namespace ZendTest\Expressive\Plates\Extension;
 use League\Plates\Engine;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ProphecyInterface;
+use ReflectionMethod;
 use Zend\Expressive\Helper\ServerUrlHelper;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Plates\Extension\UrlExtension;
+use Zend\Expressive\Router\RouteResult;
 
 class UrlExtensionTest extends TestCase
 {
@@ -46,6 +48,9 @@ class UrlExtensionTest extends TestCase
             ->shouldBeCalled();
         $engine
             ->registerFunction('serverurl', [$this->extension, 'generateServerUrl'])
+            ->shouldBeCalled();
+        $engine
+            ->registerFunction('route', [$this->extension, 'getRouteResult'])
             ->shouldBeCalled();
 
         $this->extension->register($engine->reveal());
@@ -113,5 +118,20 @@ class UrlExtensionTest extends TestCase
     {
         $this->serverUrlHelper->generate($path)->willReturn('/success');
         $this->assertEquals('/success', $this->extension->generateServerUrl($path));
+    }
+
+    /**
+     * Test is executed if UrlHelper::getRouteResult() exists
+     */
+    public function testGetRouteResult()
+    {
+        $reflection = new ReflectionMethod(UrlHelper::class, 'getRouteResult');
+        if (! $reflection->isPublic()) {
+            $this->markTestSkipped('I cannot test because UrlHelper::getRouteResult is not public');
+        }
+        $result = $this->prophesize(RouteResult::class);
+        $this->urlHelper->getRouteResult()->willReturn($result->reveal());
+
+        $this->assertInstanceOf(RouteResult::class, $this->extension->getRouteResult());
     }
 }
