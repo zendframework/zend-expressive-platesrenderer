@@ -120,18 +120,18 @@ class UrlExtensionTest extends TestCase
         $this->assertEquals('/success', $this->extension->generateServerUrl($path));
     }
 
-    /**
-     * Test is executed if UrlHelper::getRouteResult() exists
-     */
-    public function testGetRouteResult()
+    public function testGetRouteResultReturnsRouteResultWhenPopulated()
     {
-        $reflection = new ReflectionMethod(UrlHelper::class, 'getRouteResult');
-        if (! $reflection->isPublic()) {
-            $this->markTestSkipped('I cannot test because UrlHelper::getRouteResult is not public');
-        }
         $result = $this->prophesize(RouteResult::class);
         $this->urlHelper->getRouteResult()->willReturn($result->reveal());
 
         $this->assertInstanceOf(RouteResult::class, $this->extension->getRouteResult());
+    }
+
+    public function testGetRouteResultReturnsNullWhenRouteResultNotPopulatedInUrlHelper()
+    {
+        $this->urlHelper->getRouteResult()->willReturn(null);
+
+        $this->assertNull($this->extension->getRouteResult());
     }
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * @see       https://github.com/zendframework/zend-expressive-platesrenderer for the canonical source repository
- * @copyright Copyright (c) 2016-2017 Zend Technologies USA Inc. (https://www.zend.com)
+ * @copyright Copyright (c) 2016-2019 Zend Technologies USA Inc. (https://www.zend.com)
  * @license   https://github.com/zendframework/zend-expressive-platesrenderer/blob/master/LICENSE.md New BSD License
  */
 
@@ -53,11 +53,9 @@ class UrlExtension implements ExtensionInterface
     }
 
     /**
-     * Get the RouteResult instance of UrlHelper
-     *
-     * @return RouteResult
+     * Get the RouteResult instance of UrlHelper, if any.
      */
-    public function getRouteResult() : RouteResult
+    public function getRouteResult() : ?RouteResult
     {
         return $this->urlHelper->getRouteResult();
     }
