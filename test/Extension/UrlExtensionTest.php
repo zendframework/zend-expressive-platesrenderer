@@ -1,7 +1,7 @@
 <?php
 /**
  * @see       https://github.com/zendframework/zend-expressive-platesrenderer for the canonical source repository
- * @copyright Copyright (c) 2016-2017 Zend Technologies USA Inc. (https://www.zend.com)
+ * @copyright Copyright (c) 2016-2019 Zend Technologies USA Inc. (https://www.zend.com)
  * @license   https://github.com/zendframework/zend-expressive-platesrenderer/blob/master/LICENSE.md New BSD License
  */
 
@@ -15,6 +15,7 @@ use Prophecy\Prophecy\ProphecyInterface;
 use Zend\Expressive\Helper\ServerUrlHelper;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Plates\Extension\UrlExtension;
+use Zend\Expressive\Router\RouteResult;
 
 class UrlExtensionTest extends TestCase
 {
@@ -46,6 +47,9 @@ class UrlExtensionTest extends TestCase
             ->shouldBeCalled();
         $engine
             ->registerFunction('serverurl', [$this->extension, 'generateServerUrl'])
+            ->shouldBeCalled();
+        $engine
+            ->registerFunction('route', [$this->extension, 'getRouteResult'])
             ->shouldBeCalled();
 
         $this->extension->register($engine->reveal());
@@ -113,5 +117,20 @@ class UrlExtensionTest extends TestCase
     {
         $this->serverUrlHelper->generate($path)->willReturn('/success');
         $this->assertEquals('/success', $this->extension->generateServerUrl($path));
+    }
+
+    public function testGetRouteResultReturnsRouteResultWhenPopulated()
+    {
+        $result = $this->prophesize(RouteResult::class);
+        $this->urlHelper->getRouteResult()->willReturn($result->reveal());
+
+        $this->assertInstanceOf(RouteResult::class, $this->extension->getRouteResult());
+    }
+
+    public function testGetRouteResultReturnsNullWhenRouteResultNotPopulatedInUrlHelper()
+    {
+        $this->urlHelper->getRouteResult()->willReturn(null);
+
+        $this->assertNull($this->extension->getRouteResult());
     }
 }

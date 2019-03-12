@@ -1,7 +1,7 @@
 <?php
 /**
  * @see       https://github.com/zendframework/zend-expressive-platesrenderer for the canonical source repository
- * @copyright Copyright (c) 2016-2017 Zend Technologies USA Inc. (https://www.zend.com)
+ * @copyright Copyright (c) 2016-2019 Zend Technologies USA Inc. (https://www.zend.com)
  * @license   https://github.com/zendframework/zend-expressive-platesrenderer/blob/master/LICENSE.md New BSD License
  */
 
@@ -13,6 +13,7 @@ use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 use Zend\Expressive\Helper\ServerUrlHelper;
 use Zend\Expressive\Helper\UrlHelper;
+use Zend\Expressive\Router\RouteResult;
 
 class UrlExtension implements ExtensionInterface
 {
@@ -48,6 +49,15 @@ class UrlExtension implements ExtensionInterface
     {
         $engine->registerFunction('url', [$this, 'generateUrl']);
         $engine->registerFunction('serverurl', [$this, 'generateServerUrl']);
+        $engine->registerFunction('route', [$this, 'getRouteResult']);
+    }
+
+    /**
+     * Get the RouteResult instance of UrlHelper, if any.
+     */
+    public function getRouteResult() : ?RouteResult
+    {
+        return $this->urlHelper->getRouteResult();
     }
 
     /**
