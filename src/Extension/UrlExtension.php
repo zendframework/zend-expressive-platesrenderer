@@ -13,7 +13,6 @@ use League\Plates\Engine;
 use League\Plates\Extension\ExtensionInterface;
 use Zend\Expressive\Helper\ServerUrlHelper;
 use Zend\Expressive\Helper\UrlHelper;
-use Zend\Expressive\Plates\Exception;
 use Zend\Expressive\Router\RouteResult;
 
 class UrlExtension implements ExtensionInterface
@@ -60,11 +59,6 @@ class UrlExtension implements ExtensionInterface
      */
     public function getRouteResult() : RouteResult
     {
-        if (! method_exists($this->urlHelper, 'getRouteResult')) {
-            throw new Exception\RuntimeException(
-                'The helper does not contains the route result. Please update zend-expressive-helpers'
-            );
-        }
         return $this->urlHelper->getRouteResult();
     }
 

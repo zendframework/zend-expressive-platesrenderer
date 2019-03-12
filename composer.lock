@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2bdf3e91df81ea7fbfc8e4b245bcf799",
+    "content-hash": "2a2d3ce68b011088a0c86d3c22cfa3d2",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -362,16 +362,16 @@
         },
         {
             "name": "zendframework/zend-expressive-helpers",
-            "version": "5.0.0",
+            "version": "5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-expressive-helpers.git",
-                "reference": "196e7d4de290b422df4688338dd4fa47e48b4d2f"
+                "reference": "78fa5dff6a790a37c5952a0a9d2682e438e8b352"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-expressive-helpers/zipball/196e7d4de290b422df4688338dd4fa47e48b4d2f",
-                "reference": "196e7d4de290b422df4688338dd4fa47e48b4d2f",
+                "url": "https://api.github.com/repos/zendframework/zend-expressive-helpers/zipball/78fa5dff6a790a37c5952a0a9d2682e438e8b352",
+                "reference": "78fa5dff6a790a37c5952a0a9d2682e438e8b352",
                 "shasum": ""
             },
             "require": {
@@ -391,8 +391,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.0.x-dev",
-                    "dev-develop": "5.1.x-dev"
+                    "dev-master": "5.2.x-dev",
+                    "dev-develop": "5.3.x-dev"
                 },
                 "zf": {
                     "config-provider": "Zend\\Expressive\\Helper\\ConfigProvider"
@@ -418,7 +418,7 @@
                 "zend-expressive",
                 "zf"
             ],
-            "time": "2018-03-15T16:42:27+00:00"
+            "time": "2019-03-12T17:17:07+00:00"
         },
         {
             "name": "zendframework/zend-expressive-router",
