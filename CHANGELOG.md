@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.1.0 - TBD
+## 2.1.0 - 2019-03-12
 
 ### Added
 
@@ -10,28 +10,6 @@ All notable changes to this project will be documented in this file, in reverse 
   `Zend\Expressive\Router\RouteResult` or `null`, based on the presence or
   absence of a `RouteResult` in the `Zend\Expressive\Helper\UrlHelper` instance
   composed. This can be used to get the matched route name and/or parameters.
-
-### Changed
-
-- Nothing.
-
-### Deprecated
-
-- Nothing.
-
-### Removed
-
-- Nothing.
-
-### Fixed
-
-- Nothing.
-
-## 2.0.1 - TBD
-
-### Added
-
-- Nothing.
 
 ### Changed
 

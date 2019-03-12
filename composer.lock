@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2a2d3ce68b011088a0c86d3c22cfa3d2",
+    "content-hash": "fc755961511313ec9fb308ceaf60a421",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -1388,6 +1388,7 @@
                 "mock",
                 "xunit"
             ],
+            "abandoned": true,
             "time": "2018-02-15T05:27:38+00:00"
         },
         {
