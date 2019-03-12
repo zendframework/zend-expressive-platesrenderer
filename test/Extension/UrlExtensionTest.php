@@ -1,7 +1,7 @@
 <?php
 /**
  * @see       https://github.com/zendframework/zend-expressive-platesrenderer for the canonical source repository
- * @copyright Copyright (c) 2016-2017 Zend Technologies USA Inc. (https://www.zend.com)
+ * @copyright Copyright (c) 2016-2019 Zend Technologies USA Inc. (https://www.zend.com)
  * @license   https://github.com/zendframework/zend-expressive-platesrenderer/blob/master/LICENSE.md New BSD License
  */
 
@@ -12,7 +12,6 @@ namespace ZendTest\Expressive\Plates\Extension;
 use League\Plates\Engine;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ProphecyInterface;
-use ReflectionMethod;
 use Zend\Expressive\Helper\ServerUrlHelper;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Plates\Extension\UrlExtension;
