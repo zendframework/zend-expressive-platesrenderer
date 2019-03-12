@@ -6,7 +6,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#36](https://github.com/zendframework/zend-expressive-platesrenderer/pull/36) adds the template function `route()`, which will return a
+  `Zend\Expressive\Router\RouteResult` or `null`, based on the presence or
+  absence of a `RouteResult` in the `Zend\Expressive\Helper\UrlHelper` instance
+  composed. This can be used to get the matched route name and/or parameters.
 
 ### Changed
 
