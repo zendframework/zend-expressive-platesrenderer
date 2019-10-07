@@ -47,43 +47,8 @@ class UrlExtension implements ExtensionInterface
      */
     public function register(Engine $engine) : void
     {
-        $engine->registerFunction('url', [$this, 'generateUrl']);
-        $engine->registerFunction('serverurl', [$this, 'generateServerUrl']);
-        $engine->registerFunction('route', [$this, 'getRouteResult']);
-    }
-
-    /**
-     * Get the RouteResult instance of UrlHelper, if any.
-     */
-    public function getRouteResult() : ?RouteResult
-    {
-        return $this->urlHelper->getRouteResult();
-    }
-
-    /**
-     * Generate a URL from either the currently matched route or the specfied route.
-     *
-     * @param array  $options Can have the following keys:
-     *     - router (array): contains options to be passed to the router
-     *     - reuse_result_params (bool): indicates if the current RouteResult
-     *       parameters will be used, defaults to true
-     * @return string
-     */
-    public function generateUrl(
-        string $routeName = null,
-        array $routeParams = [],
-        array $queryParams = [],
-        ?string $fragmentIdentifier = null,
-        array $options = []
-    ) {
-        return $this->urlHelper->generate($routeName, $routeParams, $queryParams, $fragmentIdentifier, $options);
-    }
-
-    /**
-     * Generate a fully qualified URI, relative to $path.
-     */
-    public function generateServerUrl(string $path = null) : string
-    {
-        return $this->serverUrlHelper->generate($path);
+        $engine->registerFunction('url', $this->urlHelper);
+        $engine->registerFunction('serverurl', $this->serverUrlHelper);
+        $engine->registerFunction('route', [$this->urlHelper, 'getRouteResult']);
     }
 }
