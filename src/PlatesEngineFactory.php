@@ -49,7 +49,7 @@ class PlatesEngineFactory
     public function __invoke(ContainerInterface $container) : PlatesEngine
     {
         $config = $container->has('config') ? $container->get('config') : [];
-        $config = isset($config['plates']) ? $config['plates'] : [];
+        $config = $config['plates'] ?? [];
 
         // Create the engine instance:
         $engine = new PlatesEngine();
