@@ -32,16 +32,9 @@ class EscaperExtensionFactory
     public function __invoke(ContainerInterface $container) : EscaperExtension
     {
         $config = $container->has('config') ? $container->get('config') : [];
-        $config = isset($config['plates']) ? $config['plates'] : [];
-
-        $encoding = null;
-
-        // Set encoding
-        if (isset($config['encoding'])) {
-            $encoding = $config['encoding'];
-        }
+        $config = $config['plates'] ?? [];
 
         // Create new EscaperExtension instance
-        return new EscaperExtension($encoding);
+        return new EscaperExtension($config['encoding'] ?? null);
     }
 }
