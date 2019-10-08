@@ -42,7 +42,7 @@ class PlatesRendererFactory
     public function __invoke(ContainerInterface $container) : PlatesRenderer
     {
         $config = $container->has('config') ? $container->get('config') : [];
-        $config = isset($config['templates']) ? $config['templates'] : [];
+        $config = $config['templates'] ?? [];
 
         // Create the engine instance:
         $engine = $this->createEngine($container);
