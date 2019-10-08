@@ -43,13 +43,13 @@ class UrlExtensionTest extends TestCase
     {
         $engine = $this->prophesize(Engine::class);
         $engine
-            ->registerFunction('url', [$this->extension, 'generateUrl'])
+            ->registerFunction('url', $this->urlHelper)
             ->shouldBeCalled();
         $engine
-            ->registerFunction('serverurl', [$this->extension, 'generateServerUrl'])
+            ->registerFunction('serverurl', $this->serverUrlHelper)
             ->shouldBeCalled();
         $engine
-            ->registerFunction('route', [$this->extension, 'getRouteResult'])
+            ->registerFunction('route', [$this->urlHelper, 'getRouteResult'])
             ->shouldBeCalled();
 
         $this->extension->register($engine->reveal());

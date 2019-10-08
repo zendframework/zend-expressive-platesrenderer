@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.1.1 - TBD
+## 2.2.0 - 2019-10-08
 
 ### Added
 
@@ -10,11 +10,15 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
-- Nothing.
+- [#37](https://github.com/zendframework/zend-expressive-platesrenderer/pull/37) changes some internal logic in how the UrlHelper and ServerUrlHelper are exposed as Plates functions, reducing the number of nested calls and improving performance.
 
 ### Deprecated
 
-- Nothing.
+- [#37](https://github.com/zendframework/zend-expressive-platesrenderer/pull/37) deprecates the method `Zend\Expressive\Plates\Extension\UrlExtension::generateServerUrl()`. Originally, the extension registered this method with the Plates engine as the function `serverurl()`; we now register the `Zend\Expressive\Helper\ServerUrlHelper` instance directly (as it is callable), making the method obsolete. It will be removed in version 3.0.0.
+
+- [#37](https://github.com/zendframework/zend-expressive-platesrenderer/pull/37) deprecates the method `Zend\Expressive\Plates\Extension\UrlExtension::generateUrl()`. Originally, the extension registered this method with the Plates engine as the function `url()`; we now register the `Zend\Expressive\Helper\UrlHelper` instance directly (as it is callable), making the method obsolete. It will be removed in version 3.0.0.
+
+- [#37](https://github.com/zendframework/zend-expressive-platesrenderer/pull/37) deprecates the method `Zend\Expressive\Plates\Extension\UrlExtension::getRouteResult()`. Originally, the extension registered this method with the Plates engine as the function `route()`; we now register the `Zend\Expressive\Helper\UrlHelper::getRouteResult()` method directly, making the method obsolete. It will be removed in version 3.0.0.
 
 ### Removed
 
